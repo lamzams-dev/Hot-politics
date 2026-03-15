@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hot Politics — Your vote matters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --hot: #e63946;
+      --ember: #f4a261;
+      --dark: #1d1d1f;
+      --cream: #fefae0;
+      --ink: #2b2d42;
+      --white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--cream);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem 0 3rem;
+      background: linear-gradient(180deg, var(--dark) 0%, #2a1a1a 50%, var(--dark) 100%);
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% 20%, rgba(230, 57, 70, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero .container {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--ember);
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(2.5rem, 12vw, 3.5rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 .accent {
+      color: var(--hot);
+      display: block;
+      font-size: 0.85em;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--cream);
+      opacity: 0.95;
+      max-width: 320px;
+      margin-bottom: 2rem;
+    }
+    .cta {
+      display: inline-block;
+      background: var(--hot);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      padding: 0.9rem 1.8rem;
+      border-radius: 999px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta:hover, .cta:focus {
+      transform: scale(1.02);
+      box-shadow: 0 0 0 3px var(--ember);
+    }
+
+    /* Section titles */
+    section {
+      padding: 3rem 0;
+      border-top: 1px solid rgba(254, 250, 224, 0.08);
+    }
+    .section-head {
+      margin-bottom: 1.5rem;
+    }
+    .section-head h2 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(1.75rem, 8vw, 2.25rem);
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .section-head h2 span {
+      color: var(--hot);
+    }
+    .section-head p {
+      color: var(--cream);
+      opacity: 0.85;
+      font-size: 0.95rem;
+      margin-top: 0.35rem;
+    }
+
+    /* Parties */
+    .parties-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .party-card {
+      background: rgba(254, 250, 224, 0.06);
+      border: 1px solid rgba(254, 250, 224, 0.12);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .party-card:active {
+      background: rgba(254, 250, 224, 0.1);
+    }
+    .party-card h3 {
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+    .party-card .tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ember);
+      margin-bottom: 0.5rem;
+    }
+    .party-card p {
+      font-size: 0.9rem;
+      color: var(--cream);
+      opacity: 0.9;
+    }
+
+    /* Skills */
+    .skills-list {
+      list-style: none;
+    }
+    .skills-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(254, 250, 224, 0.08);
+    }
+    .skills-list li:last-child {
+      border-bottom: none;
+    }
+    .skill-num {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      background: var(--hot);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .skill-text h3 {
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .skill-text p {
+      font-size: 0.9rem;
+      color: var(--cream);
+      opacity: 0.85;
+    }
+
+    /* Quiz */
+    .quiz-box {
+      background: rgba(254, 250, 224, 0.06);
+      border: 1px solid rgba(254, 250, 224, 0.12);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .quiz-box h3 {
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .quiz-option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: rgba(254, 250, 224, 0.06);
+      border: 1px solid rgba(254, 250, 224, 0.15);
+      color: var(--cream);
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .quiz-option:hover {
+      background: rgba(254, 250, 224, 0.1);
+    }
+    .quiz-option.correct {
+      background: rgba(46, 125, 50, 0.3);
+      border-color: #4caf50;
+    }
+    .quiz-option.wrong {
+      background: rgba(230, 57, 70, 0.2);
+      border-color: var(--hot);
+    }
+    .quiz-option:disabled {
+      cursor: default;
+      opacity: 0.8;
+    }
+    .quiz-feedback {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      display: none;
+    }
+    .quiz-feedback.show {
+      display: block;
+    }
+    .quiz-feedback.correct {
+      background: rgba(76, 175, 80, 0.2);
+      color: #a5d6a7;
+    }
+    .quiz-feedback.wrong {
+      background: rgba(230, 57, 70, 0.2);
+      color: #ef9a9a;
+    }
+    .quiz-next {
+      margin-top: 1rem;
+      background: var(--ember);
+      color: var(--dark);
+      border: none;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      cursor: pointer;
+      display: none;
+    }
+    .quiz-next.show {
+      display: inline-block;
+    }
+    .quiz-score {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--ember);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 0 3rem;
+      text-align: center;
+      border-top: 1px solid rgba(254, 250, 224, 0.08);
+    }
+    footer p {
+      font-size: 0.85rem;
+      color: var(--cream);
+      opacity: 0.7;
+    }
+    footer .course {
+      font-weight: 700;
+      color: var(--ember);
+      margin-bottom: 0.25rem;
+    }
+
+    @media (min-width: 500px) {
+      .container {
+        max-width: 480px;
+        padding: 0 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <p class="hero-tag">University campaign</p>
+      <h1>Hot <span class="accent">Politics</span></h1>
+      <p>Your vote shapes the future. Get informed, get involved, and make your voice count on election day.</p>
+      <a href="#parties" class="cta">Explore & vote</a>
+    </div>
+  </header>
+
+  <section id="parties" aria-labelledby="parties-heading">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="parties-heading">Parties <span>& platforms</span></h2>
+        <p>Quick overview of major parties so you can compare and decide.</p>
+      </div>
+      <div class="parties-grid">
+        <article class="party-card">
+          <span class="tag">Left / Progressive</span>
+          <h3>Social Democrats & Greens</h3>
+          <p>Focus on climate, welfare, and public services. Typical themes: green transition, healthcare, education.</p>
+        </article>
+        <article class="party-card">
+          <span class="tag">Centre</span>
+          <h3>Liberals & Centrists</h3>
+          <p>Market-friendly with social safety nets. Often stress economy, EU integration, and civil rights.</p>
+        </article>
+        <article class="party-card">
+          <span class="tag">Right / Conservative</span>
+          <h3>Conservatives & Right</h3>
+          <p>Emphasis on tradition, law and order, lower taxes, and national identity. Often stress security and borders.</p>
+        </article>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Check official party websites and voter guides in your country for exact names and programmes.</p>
+    </div>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-heading">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="skills-heading">Skills <span>you gain</span></h2>
+        <p>What you learn when you engage with politics and voting.</p>
+      </div>
+      <ul class="skills-list">
+        <li>
+          <span class="skill-num">1</span>
+          <div class="skill-text">
+            <h3>Critical thinking</h3>
+            <p>Weigh policies, spot misinformation, and form your own views from evidence.</p>
+          </div>
+        </li>
+        <li>
+          <span class="skill-num">2</span>
+          <div class="skill-text">
+            <h3>Civic literacy</h3>
+            <p>Understand how elections, parliaments, and governments actually work.</p>
+          </div>
+        </li>
+        <li>
+          <span class="skill-num">3</span>
+          <div class="skill-text">
+            <h3>Informed debate</h3>
+            <p>Discuss issues clearly and respectfully with people who disagree.</p>
+          </div>
+        </li>
+        <li>
+          <span class="skill-num">4</span>
+          <div class="skill-text">
+            <h3>Accountability</h3>
+            <p>Hold representatives to their promises and use your vote to demand change.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="quiz" aria-labelledby="quiz-heading">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="quiz-heading">Quick <span>quiz</span></h2>
+        <p>Test your basics and learn something new.</p>
+      </div>
+      <div class="quiz-box">
+        <h3 class="quiz-question" id="quiz-question">Loading…</h3>
+        <div class="quiz-options" id="quiz-options"></div>
+        <div class="quiz-feedback" id="quiz-feedback"></div>
+        <button type="button" class="quiz-next" id="quiz-next">Next question</button>
+        <p class="quiz-score" id="quiz-score"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p class="course">Hot Politics — University campaign</p>
+      <p>Get informed. Vote. Make it count.</p>
+    </div>
+  </footer>
+
+  <script>
+    const quizData = [
+      {
+        question: 'What is the main purpose of voting in a democracy?',
+        options: [
+          'To choose representatives and influence policy',
+          'To avoid paying taxes',
+          'To get free public transport'
+        ],
+        correct: 0
+      },
+      {
+        question: 'Which of these is usually a responsibility of citizens in democratic elections?',
+        options: [
+          'Registering to vote and showing up on election day',
+          'Donating to every party',
+          'Running the counting of ballots personally'
+        ],
+        correct: 0
+      },
+      {
+        question: 'Why does voter turnout matter?',
+        options: [
+          'Elections better reflect the will of the people when more people vote',
+          'Only the first 1000 voters count',
+          'Turnout does not affect results'
+        ],
+        correct: 0
+      },
+      {
+        question: 'What can you do if you cannot vote in person on election day?',
+        options: [
+          'Use postal or early voting if available in your country',
+          'Send a friend to vote for you',
+          'Nothing; you must vote in person'
+        ],
+        correct: 0
+      },
+      {
+        question: 'Getting informed before voting typically includes:',
+        options: [
+          'Reading party programmes and checking fact-based sources',
+          'Only watching one TV channel',
+          'Copying the vote of a celebrity'
+        ],
+        correct: 0
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    const questionEl = document.getElementById('quiz-question');
+    const optionsEl = document.getElementById('quiz-options');
+    const feedbackEl = document.getElementById('quiz-feedback');
+    const nextBtn = document.getElementById('quiz-next');
+    const scoreEl = document.getElementById('quiz-score');
+
+    function renderQuestion() {
+      const q = quizData[currentQ];
+      if (!q) {
+        questionEl.textContent = 'Quiz complete!';
+        optionsEl.innerHTML = '';
+        feedbackEl.className = 'quiz-feedback show correct';
+        feedbackEl.textContent = `You got ${score} out of ${quizData.length}. Well done — now go vote!`;
+        nextBtn.classList.remove('show');
+        scoreEl.textContent = '';
+        return;
+      }
+      questionEl.textContent = q.question;
+      optionsEl.innerHTML = q.options.map((opt, i) =>
+        `<button type="button" class="quiz-option" data-index="${i}">${opt}</button>`
+      ).join('');
+      feedbackEl.className = 'quiz-feedback';
+      feedbackEl.textContent = '';
+      feedbackEl.classList.remove('show');
+      nextBtn.classList.remove('show');
+      scoreEl.textContent = `Question ${currentQ + 1} of ${quizData.length}`;
+      optionsEl.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', pickOption);
+      });
+    }
+
+    function pickOption(e) {
+      const btn = e.target;
+      const idx = parseInt(btn.dataset.index, 10);
+      const q = quizData[currentQ];
+      const options = optionsEl.querySelectorAll('.quiz-option');
+      options.forEach(o => o.disabled = true);
+      if (idx === q.correct) {
+        score++;
+        btn.classList.add('correct');
+        feedbackEl.textContent = 'Correct!';
+        feedbackEl.className = 'quiz-feedback show correct';
+      } else {
+        btn.classList.add('wrong');
+        options[q.correct].classList.add('correct');
+        feedbackEl.textContent = 'Not quite. The correct answer is highlighted.';
+        feedbackEl.className = 'quiz-feedback show wrong';
+      }
+      nextBtn.classList.add('show');
+    }
+
+    nextBtn.addEventListener('click', () => {
+      currentQ++;
+      renderQuestion();
+    });
+
+    renderQuestion();
+  </script>
+</body>
+</html>
