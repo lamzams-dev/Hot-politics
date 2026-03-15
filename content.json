@@ -1,0 +1,100 @@
+{
+  "parties": [
+    {
+      "id": "party-1",
+      "category": "Left / Progressive",
+      "name": "Social Democrats & Greens",
+      "description": "Focus on climate, welfare, and public services. Typical themes: green transition, healthcare, education."
+    },
+    {
+      "id": "party-2",
+      "category": "Centre",
+      "name": "Liberals & Centrists",
+      "description": "Market-friendly with social safety nets. Often stress economy, EU integration, and civil rights."
+    },
+    {
+      "id": "party-3",
+      "category": "Right / Conservative",
+      "name": "Conservatives & Right",
+      "description": "Emphasis on tradition, law and order, lower taxes, and national identity. Often stress security and borders."
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill-1",
+      "order": 1,
+      "title": "Critical thinking",
+      "description": "Weigh policies, spot misinformation, and form your own views from evidence."
+    },
+    {
+      "id": "skill-2",
+      "order": 2,
+      "title": "Civic literacy",
+      "description": "Understand how elections, parliaments, and governments actually work."
+    },
+    {
+      "id": "skill-3",
+      "order": 3,
+      "title": "Informed debate",
+      "description": "Discuss issues clearly and respectfully with people who disagree."
+    },
+    {
+      "id": "skill-4",
+      "order": 4,
+      "title": "Accountability",
+      "description": "Hold representatives to their promises and use your vote to demand change."
+    }
+  ],
+  "quizzes": [
+    {
+      "id": "quiz-1",
+      "question": "What is the main purpose of voting in a democracy?",
+      "options": [
+        "To choose representatives and influence policy",
+        "To avoid paying taxes",
+        "To get free public transport"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "quiz-2",
+      "question": "Which of these is usually a responsibility of citizens in democratic elections?",
+      "options": [
+        "Registering to vote and showing up on election day",
+        "Donating to every party",
+        "Running the counting of ballots personally"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "quiz-3",
+      "question": "Why does voter turnout matter?",
+      "options": [
+        "Elections better reflect the will of the people when more people vote",
+        "Only the first 1000 voters count",
+        "Turnout does not affect results"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "quiz-4",
+      "question": "What can you do if you cannot vote in person on election day?",
+      "options": [
+        "Use postal or early voting if available in your country",
+        "Send a friend to vote for you",
+        "Nothing; you must vote in person"
+      ],
+      "correct": 0
+    },
+    {
+      "id": "quiz-5",
+      "question": "Getting informed before voting typically includes:",
+      "options": [
+        "Reading party programmes and checking fact-based sources",
+        "Only watching one TV channel",
+        "Copying the vote of a celebrity"
+      ],
+      "correct": 0
+    }
+  ]
+}

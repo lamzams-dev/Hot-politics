@@ -341,22 +341,8 @@
         <h2 id="parties-heading">Parties <span>& platforms</span></h2>
         <p>Quick overview of major parties so you can compare and decide.</p>
       </div>
-      <div class="parties-grid">
-        <article class="party-card">
-          <span class="tag">Left / Progressive</span>
-          <h3>Social Democrats & Greens</h3>
-          <p>Focus on climate, welfare, and public services. Typical themes: green transition, healthcare, education.</p>
-        </article>
-        <article class="party-card">
-          <span class="tag">Centre</span>
-          <h3>Liberals & Centrists</h3>
-          <p>Market-friendly with social safety nets. Often stress economy, EU integration, and civil rights.</p>
-        </article>
-        <article class="party-card">
-          <span class="tag">Right / Conservative</span>
-          <h3>Conservatives & Right</h3>
-          <p>Emphasis on tradition, law and order, lower taxes, and national identity. Often stress security and borders.</p>
-        </article>
+      <div class="parties-grid" id="parties-grid">
+        <p class="loading" style="opacity:0.8;">Loading parties…</p>
       </div>
       <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Check official party websites and voter guides in your country for exact names and programmes.</p>
     </div>
@@ -368,35 +354,8 @@
         <h2 id="skills-heading">Skills <span>you gain</span></h2>
         <p>What you learn when you engage with politics and voting.</p>
       </div>
-      <ul class="skills-list">
-        <li>
-          <span class="skill-num">1</span>
-          <div class="skill-text">
-            <h3>Critical thinking</h3>
-            <p>Weigh policies, spot misinformation, and form your own views from evidence.</p>
-          </div>
-        </li>
-        <li>
-          <span class="skill-num">2</span>
-          <div class="skill-text">
-            <h3>Civic literacy</h3>
-            <p>Understand how elections, parliaments, and governments actually work.</p>
-          </div>
-        </li>
-        <li>
-          <span class="skill-num">3</span>
-          <div class="skill-text">
-            <h3>Informed debate</h3>
-            <p>Discuss issues clearly and respectfully with people who disagree.</p>
-          </div>
-        </li>
-        <li>
-          <span class="skill-num">4</span>
-          <div class="skill-text">
-            <h3>Accountability</h3>
-            <p>Hold representatives to their promises and use your vote to demand change.</p>
-          </div>
-        </li>
+      <ul class="skills-list" id="skills-list">
+        <li class="loading" style="opacity:0.8;">Loading skills…</li>
       </ul>
     </div>
   </section>
@@ -425,54 +384,7 @@
   </footer>
 
   <script>
-    const quizData = [
-      {
-        question: 'What is the main purpose of voting in a democracy?',
-        options: [
-          'To choose representatives and influence policy',
-          'To avoid paying taxes',
-          'To get free public transport'
-        ],
-        correct: 0
-      },
-      {
-        question: 'Which of these is usually a responsibility of citizens in democratic elections?',
-        options: [
-          'Registering to vote and showing up on election day',
-          'Donating to every party',
-          'Running the counting of ballots personally'
-        ],
-        correct: 0
-      },
-      {
-        question: 'Why does voter turnout matter?',
-        options: [
-          'Elections better reflect the will of the people when more people vote',
-          'Only the first 1000 voters count',
-          'Turnout does not affect results'
-        ],
-        correct: 0
-      },
-      {
-        question: 'What can you do if you cannot vote in person on election day?',
-        options: [
-          'Use postal or early voting if available in your country',
-          'Send a friend to vote for you',
-          'Nothing; you must vote in person'
-        ],
-        correct: 0
-      },
-      {
-        question: 'Getting informed before voting typically includes:',
-        options: [
-          'Reading party programmes and checking fact-based sources',
-          'Only watching one TV channel',
-          'Copying the vote of a celebrity'
-        ],
-        correct: 0
-      }
-    ];
-
+    let quizData = [];
     let currentQ = 0;
     let score = 0;
     const questionEl = document.getElementById('quiz-question');
@@ -481,20 +393,71 @@
     const nextBtn = document.getElementById('quiz-next');
     const scoreEl = document.getElementById('quiz-score');
 
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    async function loadContent() {
+      try {
+        const r = await fetch('/api/content');
+        if (r.ok) return await r.json();
+      } catch (_) {}
+      try {
+        const r = await fetch('content.json');
+        if (r.ok) return await r.json();
+      } catch (_) {}
+      return null;
+    }
+
+    function renderParties(parties) {
+      const grid = document.getElementById('parties-grid');
+      if (!parties || !parties.length) {
+        grid.innerHTML = '<p style="opacity:0.8;">No parties configured.</p>';
+        return;
+      }
+      grid.innerHTML = parties.map(p => `
+        <article class="party-card">
+          <span class="tag">${escapeHtml(p.category || '')}</span>
+          <h3>${escapeHtml(p.name || '')}</h3>
+          <p>${escapeHtml(p.description || '')}</p>
+        </article>
+      `).join('');
+    }
+
+    function renderSkills(skills) {
+      const list = document.getElementById('skills-list');
+      if (!skills || !skills.length) {
+        list.innerHTML = '<li style="opacity:0.8;">No skills configured.</li>';
+        return;
+      }
+      const sorted = [...skills].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+      list.innerHTML = sorted.map((s, i) => `
+        <li>
+          <span class="skill-num">${s.order != null ? s.order : i + 1}</span>
+          <div class="skill-text">
+            <h3>${escapeHtml(s.title || '')}</h3>
+            <p>${escapeHtml(s.description || '')}</p>
+          </div>
+        </li>
+      `).join('');
+    }
+
     function renderQuestion() {
       const q = quizData[currentQ];
       if (!q) {
         questionEl.textContent = 'Quiz complete!';
         optionsEl.innerHTML = '';
         feedbackEl.className = 'quiz-feedback show correct';
-        feedbackEl.textContent = `You got ${score} out of ${quizData.length}. Well done — now go vote!`;
+        feedbackEl.textContent = quizData.length ? `You got ${score} out of ${quizData.length}. Well done — now go vote!` : 'No questions loaded.';
         nextBtn.classList.remove('show');
         scoreEl.textContent = '';
         return;
       }
       questionEl.textContent = q.question;
-      optionsEl.innerHTML = q.options.map((opt, i) =>
-        `<button type="button" class="quiz-option" data-index="${i}">${opt}</button>`
+      optionsEl.innerHTML = (q.options || []).map((opt, i) =>
+        `<button type="button" class="quiz-option" data-index="${i}">${escapeHtml(opt)}</button>`
       ).join('');
       feedbackEl.className = 'quiz-feedback';
       feedbackEl.textContent = '';
@@ -519,7 +482,7 @@
         feedbackEl.className = 'quiz-feedback show correct';
       } else {
         btn.classList.add('wrong');
-        options[q.correct].classList.add('correct');
+        if (options[q.correct]) options[q.correct].classList.add('correct');
         feedbackEl.textContent = 'Not quite. The correct answer is highlighted.';
         feedbackEl.className = 'quiz-feedback show wrong';
       }
@@ -531,7 +494,18 @@
       renderQuestion();
     });
 
-    renderQuestion();
+    (async function init() {
+      const content = await loadContent();
+      if (content) {
+        renderParties(content.parties);
+        renderSkills(content.skills);
+        quizData = content.quizzes || [];
+      } else {
+        document.getElementById('parties-grid').innerHTML = '<p style="opacity:0.8;">Content could not be loaded.</p>';
+        document.getElementById('skills-list').innerHTML = '<li style="opacity:0.8;">Content could not be loaded.</li>';
+      }
+      renderQuestion();
+    })();
   </script>
 </body>
 </html>
