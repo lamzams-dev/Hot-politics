@@ -1,15 +1,71 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const { MongoClient } = require('mongodb');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const CONTENT_FILE = path.join(__dirname, 'content.json');
+const MONGODB_URI = process.env.MONGODB_URI;
+
+let db = null;
+let contentColl = null;
+const CONTENT_ID = 'main';
+
+async function getCollection() {
+  if (!contentColl && MONGODB_URI) {
+    const client = new MongoClient(MONGODB_URI);
+    await client.connect();
+    db = client.db();
+    contentColl = db.collection('content');
+    const existing = await contentColl.findOne({ _id: CONTENT_ID });
+    if (!existing) {
+      let seed = defaultContent();
+      try {
+        const raw = fs.readFileSync(CONTENT_FILE, 'utf8');
+        seed = JSON.parse(raw);
+      } catch (_) {}
+      await contentColl.insertOne({ _id: CONTENT_ID, ...seed });
+    }
+  }
+  return contentColl;
+}
+
+function defaultContent() {
+  return {
+    parties: [
+      { id: 'party-1', category: 'Left / Progressive', name: 'Social Democrats & Greens', description: 'Focus on climate, welfare, and public services.' },
+      { id: 'party-2', category: 'Centre', name: 'Liberals & Centrists', description: 'Market-friendly with social safety nets.' },
+      { id: 'party-3', category: 'Right / Conservative', name: 'Conservatives & Right', description: 'Emphasis on tradition, law and order, lower taxes.' }
+    ],
+    skills: [
+      { id: 'skill-1', order: 1, title: 'Critical thinking', description: 'Weigh policies and form your own views from evidence.' },
+      { id: 'skill-2', order: 2, title: 'Civic literacy', description: 'Understand how elections and governments work.' },
+      { id: 'skill-3', order: 3, title: 'Informed debate', description: 'Discuss issues clearly with people who disagree.' },
+      { id: 'skill-4', order: 4, title: 'Accountability', description: 'Hold representatives to their promises.' }
+    ],
+    quizzes: [
+      { id: 'quiz-1', question: 'What is the main purpose of voting in a democracy?', options: ['To choose representatives and influence policy', 'To avoid paying taxes', 'To get free public transport'], correct: 0 }
+    ]
+  };
+}
+
+function readContentSync() {
+  try {
+    const raw = fs.readFileSync(CONTENT_FILE, 'utf8');
+    return JSON.parse(raw);
+  } catch (err) {
+    return defaultContent();
+  }
+}
+
+function writeContentSync(data) {
+  fs.writeFileSync(CONTENT_FILE, JSON.stringify(data, null, 2), 'utf8');
+}
 
 app.use(express.json({ limit: '1mb' }));
 app.use(express.static(__dirname));
 
-// CORS for local dev (admin may be on different port if needed)
 app.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, OPTIONS');
@@ -18,27 +74,26 @@ app.use((req, res, next) => {
   next();
 });
 
-function readContent() {
-  const raw = fs.readFileSync(CONTENT_FILE, 'utf8');
-  return JSON.parse(raw);
-}
-
-function writeContent(data) {
-  fs.writeFileSync(CONTENT_FILE, JSON.stringify(data, null, 2), 'utf8');
-}
-
-// GET content (for landing page and admin)
-app.get('/api/content', (req, res) => {
+app.get('/api/content', async (req, res) => {
   try {
-    const data = readContent();
+    const coll = await getCollection();
+    if (coll) {
+      const doc = await coll.findOne({ _id: CONTENT_ID });
+      if (doc) {
+        const { _id, ...data } = doc;
+        return res.json(data);
+      }
+      return res.json(defaultContent());
+    }
+    const data = readContentSync();
     res.json(data);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Failed to read content' });
   }
 });
 
-// PUT content (admin saves)
-app.put('/api/content', (req, res) => {
+app.put('/api/content', async (req, res) => {
   try {
     const body = req.body;
     if (!body || typeof body !== 'object') {
@@ -50,19 +105,28 @@ app.put('/api/content', (req, res) => {
     if (!hasParties || !hasSkills || !hasQuizzes) {
       return res.status(400).json({ error: 'content must have parties, skills, and quizzes arrays' });
     }
-    writeContent({
-      parties: body.parties,
-      skills: body.skills,
-      quizzes: body.quizzes
-    });
+    const data = { parties: body.parties, skills: body.skills, quizzes: body.quizzes };
+
+    const coll = await getCollection();
+    if (coll) {
+      await coll.updateOne(
+        { _id: CONTENT_ID },
+        { $set: data },
+        { upsert: true }
+      );
+      return res.json({ ok: true });
+    }
+    writeContentSync(data);
     res.json({ ok: true });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Failed to write content' });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Hot Politics server at http://localhost:${PORT}`);
-  console.log(`Landing: http://localhost:${PORT}/`);
-  console.log(`Admin:   http://localhost:${PORT}/admin/`);
+  const base = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+  console.log(`Hot Politics server at ${base}`);
+  console.log(`Landing: ${base}/`);
+  console.log(`Admin:   ${base}/admin/`);
 });
