@@ -6,21 +6,24 @@
   <title>Hot Politics — Content Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --hot: #e63946;
-      --ember: #f4a261;
-      --dark: #1d1d1f;
-      --cream: #fefae0;
-      --ink: #2b2d42;
-      --white: #fff;
+      /* Match landing palette (monochrome on deep black) */
+      --dark: #0b0b0c;
+      --ink: #111113;
+      --white: #f5f5f5;
+      --cream: rgba(245, 245, 245, 0.78);
+      --ember: rgba(245, 245, 245, 0.6);
+      --hot: rgba(245, 245, 245, 0.92);
+      --border: rgba(245, 245, 245, 0.12);
+      --surface: rgba(245, 245, 245, 0.04);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Sora', sans-serif;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
       background: var(--dark);
-      color: var(--cream);
+      color: var(--white);
       line-height: 1.5;
       padding: 1.5rem;
     }
@@ -32,15 +35,19 @@
       gap: 1rem;
       margin-bottom: 1.5rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(254,250,224,0.15);
+      border-bottom: 1px solid rgba(245,245,245,0.12);
     }
     .admin-header h1 {
       font-size: 1.5rem;
       color: var(--white);
     }
-    .admin-header h1 span { color: var(--hot); }
+    .admin-header h1 span {
+      font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+      font-style: italic;
+      color: var(--white);
+    }
     .admin-header a {
-      color: var(--ember);
+      color: var(--cream);
       text-decoration: none;
       font-size: 0.9rem;
     }
@@ -52,18 +59,18 @@
     }
     .tabs button {
       font-family: inherit;
-      background: rgba(254,250,224,0.08);
-      border: 1px solid rgba(254,250,224,0.2);
-      color: var(--cream);
+      background: rgba(245,245,245,0.03);
+      border: 1px solid rgba(245,245,245,0.12);
+      color: rgba(245,245,245,0.82);
       padding: 0.6rem 1rem;
       border-radius: 8px;
       cursor: pointer;
       font-size: 0.95rem;
     }
-    .tabs button:hover { background: rgba(254,250,224,0.12); }
+    .tabs button:hover { background: rgba(245,245,245,0.05); }
     .tabs button.active {
-      background: var(--hot);
-      border-color: var(--hot);
+      background: rgba(245,245,245,0.14);
+      border-color: rgba(245,245,245,0.22);
       color: var(--white);
     }
     .panel { display: none; }
@@ -75,8 +82,8 @@
     }
     .card-list { display: flex; flex-direction: column; gap: 1rem; }
     .card {
-      background: rgba(254,250,224,0.06);
-      border: 1px solid rgba(254,250,224,0.12);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1rem 1.25rem;
     }
@@ -92,21 +99,21 @@
     .btn-icon {
       background: transparent;
       border: none;
-      color: var(--cream);
+      color: rgba(245,245,245,0.75);
       opacity: 0.8;
       cursor: pointer;
       padding: 0.25rem;
       font-size: 1rem;
       line-height: 1;
     }
-    .btn-icon:hover { opacity: 1; color: var(--ember); }
-    .btn-icon.danger:hover { color: var(--hot); }
+    .btn-icon:hover { opacity: 1; color: rgba(245,245,245,0.92); }
+    .btn-icon.danger:hover { color: rgba(245,245,245,0.92); }
     .card-body { font-size: 0.9rem; opacity: 0.9; }
     .add-btn {
       font-family: inherit;
-      background: var(--ember);
+      background: var(--white);
       color: var(--dark);
-      border: none;
+      border: 1px solid rgba(245,245,245,0.12);
       font-weight: 600;
       padding: 0.65rem 1.25rem;
       border-radius: 999px;
@@ -114,7 +121,7 @@
       font-size: 0.9rem;
       margin-top: 0.5rem;
     }
-    .add-btn:hover { filter: brightness(1.1); }
+    .add-btn:hover { filter: brightness(0.98); }
     .save-bar {
       position: fixed;
       bottom: 0;
@@ -126,23 +133,23 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      border-top: 1px solid rgba(254,250,224,0.1);
+      border-top: 1px solid rgba(245,245,245,0.10);
     }
     .save-bar .msg { font-size: 0.9rem; }
     .save-bar .msg.ok { color: #4caf50; }
-    .save-bar .msg.err { color: var(--hot); }
+    .save-bar .msg.err { color: rgba(245,245,245,0.9); }
     .save-btn {
       font-family: inherit;
-      background: var(--hot);
+      background: rgba(245,245,245,0.14);
       color: var(--white);
-      border: none;
-      font-weight: 700;
+      border: 1px solid rgba(245,245,245,0.22);
+      font-weight: 600;
       padding: 0.75rem 1.5rem;
       border-radius: 999px;
       cursor: pointer;
       font-size: 1rem;
     }
-    .save-btn:hover { filter: brightness(1.1); }
+    .save-btn:hover { background: rgba(245,245,245,0.18); }
     .save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
     body { padding-bottom: 4rem; }
     /* Modal */
@@ -159,7 +166,7 @@
     .modal-overlay.show { display: flex; }
     .modal {
       background: var(--dark);
-      border: 1px solid rgba(254,250,224,0.2);
+      border: 1px solid rgba(245,245,245,0.16);
       border-radius: 12px;
       padding: 1.5rem;
       max-width: 480px;
@@ -167,7 +174,14 @@
       max-height: 90vh;
       overflow-y: auto;
     }
-    .modal h3 { color: var(--white); margin-bottom: 1rem; font-size: 1.1rem; }
+    .modal h3 {
+      color: var(--white);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+      font-style: italic;
+      letter-spacing: -0.01em;
+    }
     .form-group { margin-bottom: 1rem; }
     .form-group label {
       display: block;
@@ -183,10 +197,10 @@
       font-family: inherit;
       font-size: 0.95rem;
       padding: 0.6rem 0.75rem;
-      border: 1px solid rgba(254,250,224,0.2);
+      border: 1px solid rgba(245,245,245,0.16);
       border-radius: 8px;
-      background: rgba(254,250,224,0.06);
-      color: var(--cream);
+      background: rgba(245,245,245,0.03);
+      color: rgba(245,245,245,0.9);
     }
     .form-group textarea { min-height: 80px; resize: vertical; }
     .form-group input::placeholder,
@@ -205,14 +219,14 @@
       font-weight: 600;
     }
     .modal-actions .btn-primary {
-      background: var(--hot);
-      color: var(--white);
-      border: none;
+      background: var(--white);
+      color: var(--dark);
+      border: 1px solid rgba(245,245,245,0.12);
     }
     .modal-actions .btn-secondary {
       background: transparent;
-      color: var(--cream);
-      border: 1px solid rgba(254,250,224,0.3);
+      color: rgba(245,245,245,0.85);
+      border: 1px solid rgba(245,245,245,0.22);
     }
     .quiz-options-list { margin-top: 0.5rem; }
     .quiz-option-row {
@@ -226,8 +240,8 @@
     .quiz-option-row .rm-opt { color: var(--hot); cursor: pointer; padding: 0.25rem; }
     .quiz-add-opt {
       background: transparent;
-      border: 1px dashed rgba(254,250,224,0.3);
-      color: var(--ember);
+      border: 1px dashed rgba(245,245,245,0.22);
+      color: rgba(245,245,245,0.78);
       padding: 0.5rem;
       border-radius: 6px;
       cursor: pointer;
@@ -243,19 +257,12 @@
   </div>
 
   <div class="tabs">
-    <button type="button" data-tab="parties" class="active">Parties</button>
-    <button type="button" data-tab="leaders">Leaders</button>
+    <button type="button" data-tab="leaders" class="active">Leaders</button>
     <button type="button" data-tab="skills">Skills</button>
     <button type="button" data-tab="quizzes">Quizzes</button>
   </div>
 
-  <div id="panel-parties" class="panel active">
-    <h2>Parties & categories</h2>
-    <div class="card-list" id="parties-list"></div>
-    <button type="button" class="add-btn" id="add-party">+ Add party</button>
-  </div>
-
-  <div id="panel-leaders" class="panel">
+  <div id="panel-leaders" class="panel active">
     <h2>Party leaders (left → right)</h2>
     <div class="card-list" id="leaders-list"></div>
     <button type="button" class="add-btn" id="add-leader">+ Add leader</button>
@@ -306,31 +313,9 @@
     }
 
     function renderAll() {
-      renderParties();
       renderLeaders();
       renderSkills();
       renderQuizzes();
-    }
-
-    function renderParties() {
-      const list = document.getElementById('parties-list');
-      list.innerHTML = data.parties.map((p, i) => `
-        <div class="card" data-index="${i}">
-          <div class="card-head">
-            <span class="card-title">${escapeHtml(p.name || 'Untitled')}</span>
-            <div class="card-actions">
-              <button type="button" class="btn-icon edit-party" title="Edit">✎</button>
-              <button type="button" class="btn-icon danger delete-party" title="Delete">✕</button>
-            </div>
-          </div>
-          <div class="card-body">
-            <span style="color:var(--ember);font-size:0.8rem;">${escapeHtml(p.category || '')}</span>
-            <p style="margin-top:0.35rem;">${escapeHtml((p.description || '').slice(0, 120))}${(p.description || '').length > 120 ? '…' : ''}</p>
-          </div>
-        </div>
-      `).join('');
-      list.querySelectorAll('.edit-party').forEach(btn => btn.addEventListener('click', () => editParty(btn.closest('.card').dataset.index)));
-      list.querySelectorAll('.delete-party').forEach(btn => btn.addEventListener('click', () => deleteParty(btn.closest('.card').dataset.index)));
     }
 
     function renderLeaders() {
@@ -428,58 +413,6 @@
     document.getElementById('modal').addEventListener('click', (e) => {
       if (e.target.id === 'modal') hideModal();
     });
-
-    // ——— Parties ———
-    function editParty(index) {
-      const p = data.parties[+index] || {};
-      showModal('Edit party', `
-        <form id="party-form">
-          <div class="form-group">
-            <label>Category / tag</label>
-            <input type="text" name="category" value="${escapeHtml(p.category || '')}" placeholder="e.g. Left / Progressive" />
-          </div>
-          <div class="form-group">
-            <label>Party name</label>
-            <input type="text" name="name" value="${escapeHtml(p.name || '')}" placeholder="e.g. Social Democrats & Greens" />
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea name="description" placeholder="Short description…">${escapeHtml(p.description || '')}</textarea>
-          </div>
-          <div class="modal-actions">
-            <button type="submit" class="btn-primary">Save</button>
-            <button type="button" class="btn-secondary cancel-modal">Cancel</button>
-          </div>
-        </form>
-      `);
-      const content = document.getElementById('modal-content');
-      content.querySelector('.cancel-modal').onclick = hideModal;
-      content.querySelector('#party-form').onsubmit = (e) => {
-        e.preventDefault();
-        const f = e.target;
-        const item = {
-          id: p.id || uid(),
-          category: f.category.value.trim(),
-          name: f.name.value.trim(),
-          description: f.description.value.trim()
-        };
-        if (index !== 'new') data.parties[+index] = item;
-        else data.parties.push(item);
-        hideModal();
-        renderParties();
-      };
-    }
-
-    function deleteParty(index) {
-      if (!confirm('Delete this party?')) return;
-      data.parties.splice(+index, 1);
-      renderParties();
-    }
-
-    document.getElementById('add-party').onclick = () => {
-      data.parties.push({ id: uid(), category: '', name: '', description: '' });
-      editParty(data.parties.length - 1);
-    };
 
     // ——— Leaders ———
     function editLeader(index) {
