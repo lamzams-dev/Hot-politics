@@ -44,6 +44,44 @@ function defaultContent() {
       { id: 'skill-3', order: 3, title: 'Informed debate', description: 'Discuss issues clearly with people who disagree.' },
       { id: 'skill-4', order: 4, title: 'Accountability', description: 'Hold representatives to their promises.' }
     ],
+    leaders: [
+      {
+        id: 'leader-1',
+        spectrumOrder: 10,
+        spectrumLabel: 'Left',
+        name: 'Leader Name (Left)',
+        partyName: 'Party Name',
+        photoUrl: '',
+        briefCv: 'Brief CV goes here.',
+        motto: 'Party motto goes here.',
+        coreValues: ['Value 1', 'Value 2', 'Value 3'],
+        officialUrl: ''
+      },
+      {
+        id: 'leader-2',
+        spectrumOrder: 50,
+        spectrumLabel: 'Centre',
+        name: 'Leader Name (Centre)',
+        partyName: 'Party Name',
+        photoUrl: '',
+        briefCv: 'Brief CV goes here.',
+        motto: 'Party motto goes here.',
+        coreValues: ['Value 1', 'Value 2', 'Value 3'],
+        officialUrl: ''
+      },
+      {
+        id: 'leader-3',
+        spectrumOrder: 90,
+        spectrumLabel: 'Right',
+        name: 'Leader Name (Right)',
+        partyName: 'Party Name',
+        photoUrl: '',
+        briefCv: 'Brief CV goes here.',
+        motto: 'Party motto goes here.',
+        coreValues: ['Value 1', 'Value 2', 'Value 3'],
+        officialUrl: ''
+      }
+    ],
     quizzes: [
       { id: 'quiz-1', question: 'What is the main purpose of voting in a democracy?', options: ['To choose representatives and influence policy', 'To avoid paying taxes', 'To get free public transport'], correct: 0 }
     ]
@@ -81,12 +119,20 @@ app.get('/api/content', async (req, res) => {
       const doc = await coll.findOne({ _id: CONTENT_ID });
       if (doc) {
         const { _id, ...data } = doc;
-        return res.json(data);
+        return res.json({
+          ...defaultContent(),
+          ...data,
+          leaders: Array.isArray(data.leaders) ? data.leaders : []
+        });
       }
       return res.json(defaultContent());
     }
     const data = readContentSync();
-    res.json(data);
+    res.json({
+      ...defaultContent(),
+      ...data,
+      leaders: Array.isArray(data.leaders) ? data.leaders : []
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to read content' });
@@ -105,7 +151,8 @@ app.put('/api/content', async (req, res) => {
     if (!hasParties || !hasSkills || !hasQuizzes) {
       return res.status(400).json({ error: 'content must have parties, skills, and quizzes arrays' });
     }
-    const data = { parties: body.parties, skills: body.skills, quizzes: body.quizzes };
+    const leaders = Array.isArray(body.leaders) ? body.leaders : [];
+    const data = { parties: body.parties, skills: body.skills, quizzes: body.quizzes, leaders };
 
     const coll = await getCollection();
     if (coll) {

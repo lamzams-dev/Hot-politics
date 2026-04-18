@@ -244,6 +244,7 @@
 
   <div class="tabs">
     <button type="button" data-tab="parties" class="active">Parties</button>
+    <button type="button" data-tab="leaders">Leaders</button>
     <button type="button" data-tab="skills">Skills</button>
     <button type="button" data-tab="quizzes">Quizzes</button>
   </div>
@@ -252,6 +253,12 @@
     <h2>Parties & categories</h2>
     <div class="card-list" id="parties-list"></div>
     <button type="button" class="add-btn" id="add-party">+ Add party</button>
+  </div>
+
+  <div id="panel-leaders" class="panel">
+    <h2>Party leaders (left → right)</h2>
+    <div class="card-list" id="leaders-list"></div>
+    <button type="button" class="add-btn" id="add-leader">+ Add leader</button>
   </div>
 
   <div id="panel-skills" class="panel">
@@ -277,7 +284,7 @@
 
   <script>
     const API = '/api/content';
-    let data = { parties: [], skills: [], quizzes: [] };
+    let data = { parties: [], leaders: [], skills: [], quizzes: [] };
 
     function uid() {
       return 'x' + Math.random().toString(36).slice(2, 11);
@@ -291,11 +298,16 @@
         document.getElementById('save-msg').textContent = 'Could not load content. Run the server (npm start).';
         document.getElementById('save-msg').className = 'msg err';
       }
+      data.parties = Array.isArray(data.parties) ? data.parties : [];
+      data.leaders = Array.isArray(data.leaders) ? data.leaders : [];
+      data.skills = Array.isArray(data.skills) ? data.skills : [];
+      data.quizzes = Array.isArray(data.quizzes) ? data.quizzes : [];
       renderAll();
     }
 
     function renderAll() {
       renderParties();
+      renderLeaders();
       renderSkills();
       renderQuizzes();
     }
@@ -319,6 +331,42 @@
       `).join('');
       list.querySelectorAll('.edit-party').forEach(btn => btn.addEventListener('click', () => editParty(btn.closest('.card').dataset.index)));
       list.querySelectorAll('.delete-party').forEach(btn => btn.addEventListener('click', () => deleteParty(btn.closest('.card').dataset.index)));
+    }
+
+    function renderLeaders() {
+      const list = document.getElementById('leaders-list');
+      if (!list) return;
+      const sorted = [...data.leaders].sort((a, b) => (a.spectrumOrder ?? 0) - (b.spectrumOrder ?? 0));
+      list.innerHTML = sorted.map((l) => {
+        const idx = data.leaders.indexOf(l);
+        const values = Array.isArray(l.coreValues) ? l.coreValues.filter(Boolean) : [];
+        return `
+        <div class="card" data-index="${idx}">
+          <div class="card-head">
+            <span class="card-title">${escapeHtml(l.name || 'Untitled')}</span>
+            <div class="card-actions">
+              <button type="button" class="btn-icon edit-leader" title="Edit">✎</button>
+              <button type="button" class="btn-icon danger delete-leader" title="Delete">✕</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div style="display:flex; gap:0.75rem; align-items:flex-start;">
+              <div style="width:44px; height:44px; border-radius:12px; overflow:hidden; border:1px solid rgba(254,250,224,0.12); background:rgba(254,250,224,0.04); flex: 0 0 auto;">
+                ${l.photoUrl ? `<img src="${escapeHtml(l.photoUrl)}" alt="" style="width:100%; height:100%; object-fit:cover;" />` : ''}
+              </div>
+              <div style="min-width:0;">
+                <div style="color:var(--ember); font-size:0.8rem;">${escapeHtml(l.spectrumLabel || '')}${l.partyName ? ` · ${escapeHtml(l.partyName)}` : ''}</div>
+                <div style="margin-top:0.35rem; opacity:0.9;">${escapeHtml((l.briefCv || '').slice(0, 120))}${(l.briefCv || '').length > 120 ? '…' : ''}</div>
+                ${l.motto ? `<div style="margin-top:0.35rem; opacity:0.9;"><em>“${escapeHtml(l.motto)}”</em></div>` : ''}
+                ${values.length ? `<div style="margin-top:0.5rem; opacity:0.9;">Values: ${escapeHtml(values.join(', '))}</div>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      }).join('');
+      list.querySelectorAll('.edit-leader').forEach(btn => btn.addEventListener('click', () => editLeader(btn.closest('.card').dataset.index)));
+      list.querySelectorAll('.delete-leader').forEach(btn => btn.addEventListener('click', () => deleteLeader(btn.closest('.card').dataset.index)));
     }
 
     function renderSkills() {
@@ -431,6 +479,106 @@
     document.getElementById('add-party').onclick = () => {
       data.parties.push({ id: uid(), category: '', name: '', description: '' });
       editParty(data.parties.length - 1);
+    };
+
+    // ——— Leaders ———
+    function editLeader(index) {
+      const l = data.leaders[+index] || {};
+      const valuesText = Array.isArray(l.coreValues) ? l.coreValues.filter(Boolean).join('\n') : '';
+      showModal(index === 'new' ? 'Add leader' : 'Edit leader', `
+        <form id="leader-form">
+          <div class="form-group">
+            <label>Spectrum order (number)</label>
+            <input type="number" name="spectrumOrder" value="${l.spectrumOrder != null ? l.spectrumOrder : ''}" placeholder="10 (left) … 90 (right)" />
+          </div>
+          <div class="form-group">
+            <label>Spectrum label</label>
+            <input type="text" name="spectrumLabel" value="${escapeHtml(l.spectrumLabel || '')}" placeholder="e.g. Left / Centre / Right" />
+          </div>
+          <div class="form-group">
+            <label>Leader name</label>
+            <input type="text" name="name" value="${escapeHtml(l.name || '')}" placeholder="Full name" />
+          </div>
+          <div class="form-group">
+            <label>Party name</label>
+            <input type="text" name="partyName" value="${escapeHtml(l.partyName || '')}" placeholder="Party name" />
+          </div>
+          <div class="form-group">
+            <label>Photo URL</label>
+            <input type="text" name="photoUrl" value="${escapeHtml(l.photoUrl || '')}" placeholder="https://… or assets/leaders/…" />
+          </div>
+          <div class="form-group">
+            <label>Brief CV</label>
+            <textarea name="briefCv" placeholder="1–2 sentence bio…">${escapeHtml(l.briefCv || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Party motto</label>
+            <input type="text" name="motto" value="${escapeHtml(l.motto || '')}" placeholder="Short motto" />
+          </div>
+          <div class="form-group">
+            <label>Core values (one per line)</label>
+            <textarea name="coreValues" placeholder="Value 1\nValue 2\nValue 3">${escapeHtml(valuesText)}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Official website URL</label>
+            <input type="text" name="officialUrl" value="${escapeHtml(l.officialUrl || '')}" placeholder="https://…" />
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">Save</button>
+            <button type="button" class="btn-secondary cancel-modal">Cancel</button>
+          </div>
+        </form>
+      `);
+      const content = document.getElementById('modal-content');
+      content.querySelector('.cancel-modal').onclick = hideModal;
+      content.querySelector('#leader-form').onsubmit = (e) => {
+        e.preventDefault();
+        const f = e.target;
+        const spectrumOrderRaw = f.spectrumOrder.value.trim();
+        const spectrumOrder = spectrumOrderRaw === '' ? null : Number(spectrumOrderRaw);
+        const coreValues = (f.coreValues.value || '')
+          .split('\n')
+          .map(s => s.trim())
+          .filter(Boolean);
+        const item = {
+          id: l.id || uid(),
+          spectrumOrder: Number.isFinite(spectrumOrder) ? spectrumOrder : null,
+          spectrumLabel: f.spectrumLabel.value.trim(),
+          name: f.name.value.trim(),
+          partyName: f.partyName.value.trim(),
+          photoUrl: f.photoUrl.value.trim(),
+          briefCv: f.briefCv.value.trim(),
+          motto: f.motto.value.trim(),
+          coreValues,
+          officialUrl: f.officialUrl.value.trim()
+        };
+        if (index !== 'new') data.leaders[+index] = item;
+        else data.leaders.push(item);
+        hideModal();
+        renderLeaders();
+      };
+    }
+
+    function deleteLeader(index) {
+      if (!confirm('Delete this leader?')) return;
+      data.leaders.splice(+index, 1);
+      renderLeaders();
+    }
+
+    document.getElementById('add-leader').onclick = () => {
+      data.leaders.push({
+        id: uid(),
+        spectrumOrder: '',
+        spectrumLabel: '',
+        name: '',
+        partyName: '',
+        photoUrl: '',
+        briefCv: '',
+        motto: '',
+        coreValues: [],
+        officialUrl: ''
+      });
+      editLeader(data.leaders.length - 1);
     };
 
     // ——— Skills ———

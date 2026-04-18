@@ -6,15 +6,18 @@
   <title>Hot Politics — Your vote matters</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --hot: #e63946;
-      --ember: #f4a261;
-      --dark: #1d1d1f;
-      --cream: #fefae0;
-      --ink: #2b2d42;
-      --white: #fff;
+      /* Palette closer to the Limitless template (monochrome on deep black) */
+      --dark: #0b0b0c;
+      --ink: #111113;
+      --white: #f5f5f5;
+      --cream: rgba(245, 245, 245, 0.75);
+      --ember: rgba(245, 245, 245, 0.6);
+      --hot: rgba(245, 245, 245, 0.92);
+      --border: rgba(245, 245, 245, 0.12);
+      --surface: rgba(245, 245, 245, 0.04);
     }
 
     * {
@@ -28,15 +31,24 @@
     }
 
     body {
-      font-family: 'Sora', -apple-system, sans-serif;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
       background: var(--dark);
-      color: var(--cream);
+      color: var(--white);
       line-height: 1.5;
       overflow-x: hidden;
     }
 
+    /* Framer-ish type rhythm */
+    .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 0.75rem;
+    }
+
     .container {
-      max-width: 420px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 1.25rem;
     }
@@ -49,7 +61,8 @@
       flex-direction: column;
       justify-content: center;
       padding: 2rem 0 3rem;
-      background: linear-gradient(180deg, var(--dark) 0%, #2a1a1a 50%, var(--dark) 100%);
+      background: radial-gradient(1200px 700px at 50% 0%, rgba(245, 245, 245, 0.08) 0%, transparent 55%),
+                  linear-gradient(180deg, #050506 0%, var(--dark) 60%, #050506 100%);
       position: relative;
     }
     .hero::before {
@@ -59,12 +72,13 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(ellipse 80% 50% at 50% 20%, rgba(230, 57, 70, 0.15) 0%, transparent 50%);
+      background: radial-gradient(ellipse 70% 50% at 50% 20%, rgba(245, 245, 245, 0.08) 0%, transparent 55%);
       pointer-events: none;
     }
     .hero .container {
       position: relative;
       z-index: 1;
+      text-align: center;
     }
     .hero-tag {
       font-family: 'Sora', sans-serif;
@@ -75,17 +89,17 @@
       margin-bottom: 0.5rem;
     }
     .hero h1 {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(2.5rem, 12vw, 3.5rem);
-      line-height: 0.95;
-      text-transform: uppercase;
+      font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+      font-size: clamp(2.9rem, 11vw, 4.2rem);
+      line-height: 0.98;
+      text-transform: none;
       color: var(--white);
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.02em;
     }
     .hero h1 .accent {
-      color: var(--hot);
-      display: block;
-      font-size: 0.85em;
+      font-style: italic;
+      color: var(--white);
     }
     .hero p {
       font-size: 1.05rem;
@@ -96,69 +110,98 @@
     }
     .cta {
       display: inline-block;
-      font-family: 'Sora', sans-serif;
-      background: var(--hot);
-      color: var(--white);
-      font-weight: 700;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      font-weight: 600;
       font-size: 1rem;
       text-decoration: none;
       padding: 0.9rem 1.8rem;
       border-radius: 999px;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
     }
     .cta:hover, .cta:focus {
       transform: scale(1.02);
-      box-shadow: 0 0 0 3px var(--ember);
+      box-shadow: 0 0 0 3px rgba(245,245,245,0.12);
+      filter: brightness(0.98);
     }
 
     /* Section titles */
     section {
       padding: 3rem 0;
-      border-top: 1px solid rgba(254, 250, 224, 0.08);
+      border-top: 1px solid rgba(245, 245, 245, 0.08);
     }
     .section-head {
       margin-bottom: 1.5rem;
+      text-align: center;
     }
     .section-head h2 {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(1.75rem, 8vw, 2.25rem);
-      text-transform: uppercase;
+      font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+      font-size: clamp(2.1rem, 8vw, 2.8rem);
+      text-transform: none;
       color: var(--white);
+      letter-spacing: -0.01em;
     }
     .section-head h2 span {
-      color: var(--hot);
+      font-style: italic;
+      color: var(--white);
     }
     .section-head p {
       color: var(--cream);
-      opacity: 0.85;
       font-size: 0.95rem;
       margin-top: 0.35rem;
+      max-width: 62ch;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* Parties */
+    /* Leaders (horizontal scroll) */
     .parties-grid {
       display: flex;
-      flex-direction: column;
       gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 0.75rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    /* Full-bleed horizontal scroller while keeping headings in container */
+    #leaders-grid {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+    .parties-grid::-webkit-scrollbar {
+      height: 10px;
+    }
+    .parties-grid::-webkit-scrollbar-thumb {
+      background: rgba(245, 245, 245, 0.18);
+      border-radius: 999px;
+    }
+    .parties-grid::-webkit-scrollbar-track {
+      background: transparent;
     }
     .party-card {
-      background: rgba(254, 250, 224, 0.06);
-      border: 1px solid rgba(254, 250, 224, 0.12);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1.25rem;
+      min-width: 300px;
+      scroll-snap-align: start;
       transition: background 0.2s, border-color 0.2s;
     }
     .party-card:active {
-      background: rgba(254, 250, 224, 0.1);
+      background: rgba(245, 245, 245, 0.06);
     }
     .party-card h3 {
-      font-family: 'Sora', sans-serif;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
       font-size: 1.1rem;
       color: var(--white);
       margin-bottom: 0.35rem;
     }
     .party-card .tag {
-      font-family: 'Sora', sans-serif;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -172,55 +215,63 @@
     }
 
     /* Skills */
-    .skills-list {
-      list-style: none;
+    .skills-steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      padding-top: 0.5rem;
     }
-    .skills-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(254, 250, 224, 0.08);
+    .skill-step {
+      text-align: center;
+      padding: 1.25rem 1rem;
+      border-radius: 14px;
+      background: rgba(245, 245, 245, 0.02);
+      border: 1px solid rgba(245, 245, 245, 0.08);
     }
-    .skills-list li:last-child {
-      border-bottom: none;
+    .skill-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 0.9rem;
+      display: grid;
+      place-items: center;
+      color: rgba(245, 245, 245, 0.9);
     }
-    .skill-num {
-      flex-shrink: 0;
-      width: 2rem;
-      height: 2rem;
-      background: var(--hot);
+    .skill-icon svg {
+      width: 34px;
+      height: 34px;
+    }
+    .skill-step h3 {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-weight: 500;
+      font-size: 1.05rem;
       color: var(--white);
-      font-family: 'Sora', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin-bottom: 0.4rem;
     }
-    .skill-text h3 {
-      font-family: 'Sora', sans-serif;
-      font-size: 1rem;
-      color: var(--white);
-      margin-bottom: 0.2rem;
-    }
-    .skill-text p {
-      font-size: 0.9rem;
+    .skill-step p {
+      font-size: 0.92rem;
       color: var(--cream);
-      opacity: 0.85;
+      line-height: 1.55;
+    }
+    @media (min-width: 760px) {
+      .skills-steps {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.75rem;
+      }
+      .skill-step {
+        padding: 1.6rem 1.25rem;
+      }
     }
 
     /* Quiz */
     .quiz-box {
-      background: rgba(254, 250, 224, 0.06);
-      border: 1px solid rgba(254, 250, 224, 0.12);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1.5rem;
       margin-bottom: 1rem;
     }
     .quiz-box h3 {
-      font-family: 'Sora', sans-serif;
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
       font-size: 1.1rem;
       color: var(--white);
       margin-bottom: 1rem;
@@ -234,9 +285,9 @@
       display: block;
       width: 100%;
       text-align: left;
-      background: rgba(254, 250, 224, 0.06);
-      border: 1px solid rgba(254, 250, 224, 0.15);
-      color: var(--cream);
+      background: rgba(245, 245, 245, 0.03);
+      border: 1px solid rgba(245, 245, 245, 0.12);
+      color: rgba(245, 245, 245, 0.85);
       font-family: inherit;
       font-size: 0.95rem;
       padding: 0.85rem 1rem;
@@ -245,15 +296,15 @@
       transition: background 0.2s, border-color 0.2s;
     }
     .quiz-option:hover {
-      background: rgba(254, 250, 224, 0.1);
+      background: rgba(245, 245, 245, 0.05);
     }
     .quiz-option.correct {
       background: rgba(46, 125, 50, 0.3);
       border-color: #4caf50;
     }
     .quiz-option.wrong {
-      background: rgba(230, 57, 70, 0.2);
-      border-color: var(--hot);
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(245, 245, 245, 0.22);
     }
     .quiz-option:disabled {
       cursor: default;
@@ -274,16 +325,16 @@
       color: #a5d6a7;
     }
     .quiz-feedback.wrong {
-      background: rgba(230, 57, 70, 0.2);
-      color: #ef9a9a;
+      background: rgba(255, 255, 255, 0.04);
+      color: rgba(245, 245, 245, 0.8);
     }
     .quiz-next {
       margin-top: 1rem;
-      background: var(--ember);
+      background: rgba(245,245,245,0.14);
       color: var(--dark);
-      border: none;
-      font-family: 'Sora', sans-serif;
-      font-weight: 700;
+      border: 1px solid rgba(245,245,245,0.2);
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-weight: 600;
       font-size: 0.95rem;
       padding: 0.75rem 1.5rem;
       border-radius: 999px;
@@ -303,7 +354,7 @@
     footer {
       padding: 2rem 0 3rem;
       text-align: center;
-      border-top: 1px solid rgba(254, 250, 224, 0.08);
+      border-top: 1px solid rgba(245, 245, 245, 0.08);
     }
     footer p {
       font-size: 0.85rem;
@@ -311,16 +362,19 @@
       opacity: 0.7;
     }
     footer .course {
-      font-family: 'Sora', sans-serif;
-      font-weight: 700;
-      color: var(--ember);
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-weight: 600;
+      color: rgba(245, 245, 245, 0.9);
       margin-bottom: 0.25rem;
     }
 
     @media (min-width: 500px) {
       .container {
-        max-width: 480px;
         padding: 0 1.5rem;
+      }
+      #leaders-grid {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
       }
     }
   </style>
@@ -328,41 +382,58 @@
 <body>
   <header class="hero">
     <div class="container">
-      <p class="hero-tag">University campaign</p>
-      <h1>Hot <span class="accent">Politics</span></h1>
-      <p>Your vote shapes the future. Get informed, get involved, and make your voice count on election day.</p>
-      <a href="#parties" class="cta">Explore & vote</a>
+      <p class="eyebrow">Make your voice count</p>
+      <h1><span class="accent">Go vote.</span> Don’t let others decide your future.</h1>
     </div>
   </header>
 
-  <section id="parties" aria-labelledby="parties-heading">
+  <section id="know-your-parties" aria-labelledby="leaders-heading">
     <div class="container">
       <div class="section-head">
-        <h2 id="parties-heading">Parties <span>& platforms</span></h2>
-        <p>Quick overview of major parties so you can compare and decide.</p>
+        <p class="eyebrow">Parties</p>
+        <h2 id="leaders-heading">Know <span>your parties</span></h2>
+        <p>From left to right on the spectrum — leaders, values, and official links.</p>
       </div>
-      <div class="parties-grid" id="parties-grid">
-        <p class="loading" style="opacity:0.8;">Loading parties…</p>
+      <div class="parties-grid" id="leaders-grid">
+        <p class="loading" style="opacity:0.8;">Loading leaders…</p>
       </div>
-      <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Check official party websites and voter guides in your country for exact names and programmes.</p>
+      <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Always verify details on official party websites and reputable voter guides.</p>
+    </div>
+  </section>
+
+  <section id="polling-place" aria-labelledby="polling-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Voting</p>
+        <h2 id="polling-heading">Find <span>your polling place</span></h2>
+        <p>Enter your address to look up where you vote. (Coming soon)</p>
+      </div>
+      <div class="party-card" style="padding: 1.25rem;">
+        <label for="polling-address" style="display:block; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ember); margin-bottom:0.35rem;">Address</label>
+        <input id="polling-address" type="text" placeholder="Type your address…" style="width:100%; font-family:inherit; font-size:1rem; padding:0.8rem 0.9rem; border-radius:10px; border:1px solid rgba(245, 245, 245, 0.18); background: rgba(245, 245, 245, 0.04); color: rgba(245, 245, 245, 0.85);" />
+        <button type="button" id="polling-search" class="cta" style="margin-top:0.9rem; width:100%; text-align:center;">Search</button>
+        <p id="polling-result" style="margin-top:0.9rem; font-size:0.9rem; opacity:0.9; display:none;"></p>
+      </div>
     </div>
   </section>
 
   <section id="skills" aria-labelledby="skills-heading">
     <div class="container">
       <div class="section-head">
-        <h2 id="skills-heading">Skills <span>you gain</span></h2>
+        <p class="eyebrow">Basics</p>
+        <h2 id="skills-heading">Why <span>vote</span></h2>
         <p>What you learn when you engage with politics and voting.</p>
       </div>
-      <ul class="skills-list" id="skills-list">
-        <li class="loading" style="opacity:0.8;">Loading skills…</li>
-      </ul>
+      <div class="skills-steps" id="skills-steps">
+        <p class="loading" style="opacity:0.8;">Loading…</p>
+      </div>
     </div>
   </section>
 
   <section id="quiz" aria-labelledby="quiz-heading">
     <div class="container">
       <div class="section-head">
+        <p class="eyebrow">Test yourself</p>
         <h2 id="quiz-heading">Quick <span>quiz</span></h2>
         <p>Test your basics and learn something new.</p>
       </div>
@@ -411,36 +482,77 @@
       return null;
     }
 
-    function renderParties(parties) {
-      const grid = document.getElementById('parties-grid');
-      if (!parties || !parties.length) {
-        grid.innerHTML = '<p style="opacity:0.8;">No parties configured.</p>';
+    function renderLeaders(leaders) {
+      const grid = document.getElementById('leaders-grid');
+      if (!leaders || !leaders.length) {
+        grid.innerHTML = '<p style="opacity:0.8;">No leaders configured yet. Add them in the admin.</p>';
         return;
       }
-      grid.innerHTML = parties.map(p => `
+      const sorted = [...leaders].sort((a, b) => (a.spectrumOrder ?? 0) - (b.spectrumOrder ?? 0));
+      grid.innerHTML = sorted.map(l => {
+        const values = Array.isArray(l.coreValues) ? l.coreValues.filter(Boolean) : [];
+        const link = (l.officialUrl || '').trim();
+        const safeLink = link ? escapeHtml(link) : '';
+        const hasPhoto = (l.photoUrl || '').trim().length > 0;
+        return `
         <article class="party-card">
-          <span class="tag">${escapeHtml(p.category || '')}</span>
-          <h3>${escapeHtml(p.name || '')}</h3>
-          <p>${escapeHtml(p.description || '')}</p>
+          <div style="display:flex; gap:0.9rem; align-items:flex-start;">
+            <div style="width:56px; height:56px; border-radius:14px; overflow:hidden; border:1px solid rgba(254, 250, 224, 0.12); background: rgba(254, 250, 224, 0.04); flex: 0 0 auto; display:flex; align-items:center; justify-content:center;">
+              ${hasPhoto ? `<img src="${escapeHtml(l.photoUrl)}" alt="${escapeHtml(l.name || 'Leader')}" style="width:100%; height:100%; object-fit:cover;" />` : `<span style="font-size:0.75rem; opacity:0.75;">Photo</span>`}
+            </div>
+            <div style="min-width:0;">
+              <span class="tag">${escapeHtml(l.spectrumLabel || '')}</span>
+              <h3 style="margin-bottom:0.2rem;">${escapeHtml(l.name || '')}</h3>
+              <p style="opacity:0.85; margin-bottom:0.55rem;"><strong>${escapeHtml(l.partyName || '')}</strong></p>
+              <p style="margin-bottom:0.6rem;">${escapeHtml(l.briefCv || '')}</p>
+              ${l.motto ? `<p style="margin-bottom:0.6rem; opacity:0.9;"><em>“${escapeHtml(l.motto)}”</em></p>` : ''}
+              ${values.length ? `<div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.65rem;">${values.map(v => `<span style="border:1px solid rgba(254, 250, 224, 0.14); background: rgba(254, 250, 224, 0.04); padding:0.25rem 0.5rem; border-radius:999px; font-size:0.8rem; opacity:0.95;">${escapeHtml(v)}</span>`).join('')}</div>` : ''}
+              ${safeLink ? `<a href="${safeLink}" target="_blank" rel="noopener noreferrer" style="color:var(--ember); text-decoration:none; font-weight:600;">Official website →</a>` : ''}
+            </div>
+          </div>
         </article>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function renderSkills(skills) {
-      const list = document.getElementById('skills-list');
+      const wrap = document.getElementById('skills-steps');
+      if (!wrap) return;
       if (!skills || !skills.length) {
-        list.innerHTML = '<li style="opacity:0.8;">No skills configured.</li>';
+        wrap.innerHTML = '<p style="opacity:0.8;">No items configured.</p>';
         return;
       }
-      const sorted = [...skills].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-      list.innerHTML = sorted.map((s, i) => `
-        <li>
-          <span class="skill-num">${s.order != null ? s.order : i + 1}</span>
-          <div class="skill-text">
-            <h3>${escapeHtml(s.title || '')}</h3>
-            <p>${escapeHtml(s.description || '')}</p>
-          </div>
-        </li>
+
+      const icons = [
+        // loop
+        `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20 7a8 8 0 0 0-14.5-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M4 7V3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M4 7h3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M4 17a8 8 0 0 0 14.5 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M20 17v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M20 17h-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>`,
+        // bolt
+        `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M13 2 4 14h7l-1 8 10-14h-7l0-6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>`,
+        // like + stars
+        `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9.5 10.5V20H6.8a2 2 0 0 1-2-2v-5.2a2 2 0 0 1 .6-1.4l3-3a2 2 0 0 1 3.4 1.4v.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M9.5 20h8a2 2 0 0 0 2-2v-4.5a2 2 0 0 0-2-2h-4l.8-3.8a2 2 0 0 0-3.7-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M16.8 3.2l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5.5-1.3Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M20.2 6.2l.4 1.1 1.1.4-1.1.4-.4 1.1-.4-1.1-1.1-.4 1.1-.4.4-1.1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+        </svg>`
+      ];
+
+      const sorted = [...skills].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).slice(0, 3);
+      wrap.innerHTML = sorted.map((s, i) => `
+        <div class="skill-step">
+          <div class="skill-icon">${icons[i % icons.length]}</div>
+          <h3>${escapeHtml(s.title || '')}</h3>
+          <p>${escapeHtml(s.description || '')}</p>
+        </div>
       `).join('');
     }
 
@@ -494,17 +606,39 @@
       renderQuestion();
     });
 
+    function initPollingDummy() {
+      const input = document.getElementById('polling-address');
+      const btn = document.getElementById('polling-search');
+      const out = document.getElementById('polling-result');
+      if (!input || !btn || !out) return;
+
+      function show(msg) {
+        out.textContent = msg;
+        out.style.display = 'block';
+      }
+
+      btn.addEventListener('click', () => {
+        const address = (input.value || '').trim();
+        if (!address) {
+          show('Please enter your address to continue.');
+          return;
+        }
+        show('Coming soon — official polling-place lookup will be added here. For now, check your municipality’s election site.');
+      });
+    }
+
     (async function init() {
       const content = await loadContent();
       if (content) {
-        renderParties(content.parties);
+        renderLeaders(content.leaders);
         renderSkills(content.skills);
         quizData = content.quizzes || [];
       } else {
-        document.getElementById('parties-grid').innerHTML = '<p style="opacity:0.8;">Content could not be loaded.</p>';
-        document.getElementById('skills-list').innerHTML = '<li style="opacity:0.8;">Content could not be loaded.</li>';
+        document.getElementById('leaders-grid').innerHTML = '<p style="opacity:0.8;">Content could not be loaded.</p>';
+        document.getElementById('skills-steps').innerHTML = '<p style="opacity:0.8;">Content could not be loaded.</p>';
       }
       renderQuestion();
+      initPollingDummy();
     })();
   </script>
 </body>

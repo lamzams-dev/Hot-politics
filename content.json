@@ -45,6 +45,56 @@
       "description": "Hold representatives to their promises and use your vote to demand change."
     }
   ],
+  "leaders": [
+    {
+      "id": "leader-1",
+      "spectrumOrder": 10,
+      "spectrumLabel": "Left",
+      "name": "Leader Name (Left)",
+      "partyName": "Party Name",
+      "photoUrl": "",
+      "briefCv": "Brief CV goes here.",
+      "motto": "Party motto goes here.",
+      "coreValues": [
+        "Value 1",
+        "Value 2",
+        "Value 3"
+      ],
+      "officialUrl": ""
+    },
+    {
+      "id": "leader-2",
+      "spectrumOrder": 50,
+      "spectrumLabel": "Centre",
+      "name": "Leader Name (Centre)",
+      "partyName": "Party Name",
+      "photoUrl": "",
+      "briefCv": "Brief CV goes here.",
+      "motto": "Party motto goes here.",
+      "coreValues": [
+        "Value 1",
+        "Value 2",
+        "Value 3"
+      ],
+      "officialUrl": ""
+    },
+    {
+      "id": "leader-3",
+      "spectrumOrder": 90,
+      "spectrumLabel": "Right",
+      "name": "Leader Name (Right)",
+      "partyName": "Party Name",
+      "photoUrl": "",
+      "briefCv": "Brief CV goes here.",
+      "motto": "Party motto goes here.",
+      "coreValues": [
+        "Value 1",
+        "Value 2",
+        "Value 3"
+      ],
+      "officialUrl": ""
+    }
+  ],
   "quizzes": [
     {
       "id": "quiz-1",
