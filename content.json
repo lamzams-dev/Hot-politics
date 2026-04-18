@@ -47,51 +47,158 @@
   ],
   "leaders": [
     {
-      "id": "leader-1",
+      "id": "leader-kke",
       "spectrumOrder": 10,
-      "spectrumLabel": "Left",
-      "name": "Leader Name (Left)",
-      "partyName": "Party Name",
+      "spectrumLabel": "Far-left / Communist",
+      "name": "Dimitris Koutsoumpas",
+      "partyName": "KKE — Communist Party of Greece",
       "photoUrl": "",
-      "briefCv": "Brief CV goes here.",
-      "motto": "Party motto goes here.",
+      "briefCv": "Seats: 21. Marxist–Leninist party (est. 1918), the oldest political organization still active in Greece. Advocates workers’ rights, anti-imperialism, opposition to EU/NATO membership; socially conservative on some issues.",
+      "motto": "",
       "coreValues": [
-        "Value 1",
-        "Value 2",
-        "Value 3"
+        "Overthrow of capitalism",
+        "Workers’ rights",
+        "Anti-imperialism",
+        "Opposition to EU & NATO membership",
+        "Marxist–Leninist"
       ],
-      "officialUrl": ""
+      "officialUrl": "https://www.kke.gr/"
     },
     {
-      "id": "leader-2",
-      "spectrumOrder": 50,
-      "spectrumLabel": "Centre",
-      "name": "Leader Name (Centre)",
-      "partyName": "Party Name",
+      "id": "leader-syriza",
+      "spectrumOrder": 20,
+      "spectrumLabel": "Left-wing to centre-left",
+      "name": "Sokratis Famellos",
+      "partyName": "SYRIZA — Coalition of the Radical Left – Progressive Alliance",
       "photoUrl": "",
-      "briefCv": "Brief CV goes here.",
-      "motto": "Party motto goes here.",
+      "briefCv": "Seats: 25 (reduced from original due to defections). Democratic socialist, progressive, pro-European party founded as a coalition of left-wing movements (2004). Governed Greece 2015–2019.",
+      "motto": "",
       "coreValues": [
-        "Value 1",
-        "Value 2",
-        "Value 3"
+        "Social justice",
+        "Progressive reforms",
+        "LGBT rights",
+        "Secularism",
+        "Alter-globalisation"
       ],
-      "officialUrl": ""
+      "officialUrl": "https://syriza.gr/"
     },
     {
-      "id": "leader-3",
-      "spectrumOrder": 90,
-      "spectrumLabel": "Right",
-      "name": "Leader Name (Right)",
-      "partyName": "Party Name",
+      "id": "leader-nea-aristera",
+      "spectrumOrder": 30,
+      "spectrumLabel": "Left-wing to centre-left",
+      "name": "Alexis Charitsis",
+      "partyName": "Nea Aristera — New Left (Νέα Αριστερά)",
       "photoUrl": "",
-      "briefCv": "Brief CV goes here.",
-      "motto": "Party motto goes here.",
+      "briefCv": "Seats: 12. Pro-European party formed in late 2023 as a breakaway from SYRIZA. Emphasizes social equality, strong welfare state, education reform, and renewal of democracy; opposes war and genocide.",
+      "motto": "Politics returns for the life we deserve",
       "coreValues": [
-        "Value 1",
-        "Value 2",
-        "Value 3"
+        "Social equality",
+        "Strong welfare state",
+        "Education reform",
+        "Democratic renewal",
+        "Opposition to war"
       ],
+      "officialUrl": "https://neaaristera.gr/"
+    },
+    {
+      "id": "leader-pasok",
+      "spectrumOrder": 40,
+      "spectrumLabel": "Centre-left",
+      "name": "Nikos Androulakis",
+      "partyName": "PASOK – Movement for Change (ΠΑΣΟΚ – Κίνημα Αλλαγής)",
+      "photoUrl": "",
+      "briefCv": "Seats: 32. Social democratic party founded in 1974 by Andreas Papandreou. Pro-European integration; historically one of Greece’s two dominant parties. Currently the official parliamentary opposition.",
+      "motto": "",
+      "coreValues": [
+        "Social democracy",
+        "Workers’ rights",
+        "Welfare state expansion",
+        "Pro-European integration"
+      ],
+      "officialUrl": "https://kinimaallagis.gr/"
+    },
+    {
+      "id": "leader-nd",
+      "spectrumOrder": 60,
+      "spectrumLabel": "Centre-right",
+      "name": "Kyriakos Mitsotakis",
+      "partyName": "Nea Dimokratia — New Democracy (Νέα Δημοκρατία)",
+      "photoUrl": "",
+      "briefCv": "Seats: 156. Prime Minister. Liberal-conservative / Christian democratic, pro-European party founded in 1974 by Konstantinos Karamanlis. Advocates market-oriented economics, lower taxes, private enterprise, and EU/NATO integration.",
+      "motto": "",
+      "coreValues": [
+        "Market-oriented economics",
+        "Lower taxes",
+        "Private enterprise",
+        "Personal accountability",
+        "EU & NATO integration"
+      ],
+      "officialUrl": "https://nd.gr/"
+    },
+    {
+      "id": "leader-elliniki-lysi",
+      "spectrumOrder": 75,
+      "spectrumLabel": "Right-wing to far-right",
+      "name": "Kyriakos Velopoulos",
+      "partyName": "Elliniki Lysi — Greek Solution (Ελληνική Λύση)",
+      "photoUrl": "",
+      "briefCv": "Seats: 11. National conservative, right-wing populist party emphasizing strict immigration enforcement, national sovereignty, Greek Orthodox values, and a “Greece First” approach; mildly Eurosceptic.",
+      "motto": "",
+      "coreValues": [
+        "National sovereignty",
+        "Strict immigration enforcement",
+        "Greek Orthodox values",
+        "Right-wing populism",
+        "Greece First"
+      ],
+      "officialUrl": "https://elliniki-lisi.gr/"
+    },
+    {
+      "id": "leader-niki",
+      "spectrumOrder": 85,
+      "spectrumLabel": "Far-right / religious conservative",
+      "name": "Dimitrios Natsios",
+      "partyName": "NIKI — Democratic Patriotic Movement “Victory” (ΝΙΚΗ)",
+      "photoUrl": "",
+      "briefCv": "Seats: 8. Founded in 2019. Emphasizes Orthodox Christian traditionalism and nationalism; traditional family values, national identity, and opposition to secularisation.",
+      "motto": "",
+      "coreValues": [
+        "Orthodox Christian traditionalism",
+        "National identity",
+        "Patriotism",
+        "Traditional family values",
+        "Opposition to secularisation"
+      ],
+      "officialUrl": "https://nikh.gr/"
+    },
+    {
+      "id": "leader-plefsi",
+      "spectrumOrder": 35,
+      "spectrumLabel": "Left-wing, anti-establishment",
+      "name": "Zoe Konstantopoulou",
+      "partyName": "Plefsi Eleftherias — Course of Freedom (Πλεύση Ελευθερίας)",
+      "photoUrl": "",
+      "briefCv": "Seats: 5. Progressive, populist, anti-establishment party championing transparency, accountability, civil rights, and opposition to austerity policies.",
+      "motto": "",
+      "coreValues": [
+        "Transparency",
+        "Accountability",
+        "Civil rights",
+        "Anti-austerity",
+        "Anti-establishment"
+      ],
+      "officialUrl": "https://plefsieleftherias.gr/"
+    },
+    {
+      "id": "leader-independents",
+      "spectrumOrder": 95,
+      "spectrumLabel": "Independents",
+      "name": "Independent MPs",
+      "partyName": "Independents (ΑΝΕΞΑΡΤΗΤΟΙ)",
+      "photoUrl": "",
+      "briefCv": "Seats: 27. MPs who have left their original parliamentary groups and sit independently. No unified leader or platform.",
+      "motto": "",
+      "coreValues": [],
       "officialUrl": ""
     }
   ],
