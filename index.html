@@ -6,6 +6,7 @@
   <title>Hot Politics — Your vote matters</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -53,60 +54,349 @@
       padding: 0 1.25rem;
     }
 
-    /* Hero */
-    .hero {
+    /* Hero — Greece: ambient + low-opacity photo on hover + display type + slab */
+    #hero-greece {
+      --hero-blue: #2254d8;
+      --hero-photo-hover-opacity: 0.14;
+      --hero-tilt-x: 0;
+      --hero-tilt-y: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 0;
+      border-top: none;
+      position: relative;
+      overflow: hidden;
+      background: var(--hero-blue);
+      isolation: isolate;
+    }
+    .hero-greece-ambient {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-greece-ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(72px);
+      opacity: 0.55;
+      mix-blend-mode: soft-light;
+      animation: hero-greece-ambient-float 22s ease-in-out infinite;
+    }
+    .hero-greece-ambient-orb--a {
+      width: min(85vmin, 720px);
+      height: min(85vmin, 720px);
+      top: -18%;
+      left: -12%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35) 0%, transparent 62%);
+    }
+    .hero-greece-ambient-orb--b {
+      width: min(70vmin, 560px);
+      height: min(70vmin, 560px);
+      bottom: -22%;
+      right: -8%;
+      background: radial-gradient(circle at 70% 60%, rgba(180, 210, 255, 0.45) 0%, transparent 65%);
+      animation-delay: -9s;
+      animation-duration: 28s;
+    }
+    @keyframes hero-greece-ambient-float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      40% { transform: translate(4%, -3%) scale(1.05); }
+      70% { transform: translate(-3%, 5%) scale(0.98); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-greece-ambient-orb {
+        animation: none !important;
+      }
+    }
+    .hero-greece-reveal {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.55s ease;
+      pointer-events: none;
+      background-color: transparent;
+      background-image: url('https://images.unsplash.com/photo-1602522393396-3f56815fc1b6?q=80&w=2348&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      background-size: cover;
+      background-position: left center;
+      background-repeat: no-repeat;
+    }
+    #hero-greece:hover .hero-greece-reveal,
+    #hero-greece:focus-within .hero-greece-reveal {
+      opacity: var(--hero-photo-hover-opacity);
+    }
+    .hero-greece-vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      pointer-events: none;
+      box-shadow: inset 0 0 min(120px, 18vmin) rgba(0, 0, 0, 0.42), inset 0 0 min(280px, 42vmin) rgba(0, 20, 80, 0.35);
+    }
+    .hero-greece-grain {
+      position: absolute;
+      inset: 0;
+      z-index: 7;
+      pointer-events: none;
+      opacity: 0.14;
+      mix-blend-mode: overlay;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 3px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3px);
+    }
+    @media (hover: none) {
+      #hero-greece .hero-greece-reveal {
+        opacity: 0;
+      }
+      #hero-greece.hero-greece-touch-open .hero-greece-reveal {
+        opacity: var(--hero-photo-hover-opacity);
+      }
+    }
+    .hero-greece-slogan {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1rem, 5vmin, 2.5rem);
+      text-align: center;
+      pointer-events: none;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    #hero-greece.hero-greece-mode-parallax .hero-greece-slogan {
+      transform: translate3d(calc(var(--hero-tilt-x) * 28px), calc(var(--hero-tilt-y) * 20px), 0);
+    }
+    .hero-greece-display {
+      margin: 0;
+      font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(2.6rem, 12vw, 8rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: #fff;
+      text-shadow: 0 4px 48px rgba(0, 0, 0, 0.45);
+      max-width: min(96vw, 22ch);
+    }
+    .hero-greece-display-line {
+      display: block;
+    }
+    .hero-greece-display-line--finale {
+      font-style: italic;
+      margin-top: -0.02em;
+    }
+    .hero-greece-display-inner {
+      display: inline-block;
+    }
+    @keyframes hero-greece-appear-up {
+      from {
+        opacity: 0;
+        transform: translate3d(0, 2.25rem, 0);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-greece-display-inner {
+        opacity: 0;
+        animation: hero-greece-appear-up 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .hero-greece-display-line:nth-child(1) .hero-greece-display-inner {
+        animation-delay: 0.08s;
+      }
+      .hero-greece-display-line:nth-child(2) .hero-greece-display-inner {
+        animation-delay: 0.2s;
+      }
+      .hero-greece-tagline-inner {
+        opacity: 0;
+        animation: hero-greece-appear-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-greece-display-inner,
+      .hero-greece-tagline-inner {
+        opacity: 1;
+        transform: none;
+      }
+    }
+    .hero-greece-tagline {
+      margin: clamp(0.75rem, 2.5vw, 1.35rem) 0 0;
+      font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 4.2vw, 2.4rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: rgba(255, 255, 255, 0.94);
+      text-shadow: 0 3px 36px rgba(0, 0, 0, 0.4);
+      max-width: min(90vw, 22ch);
+    }
+    .hero-greece-tagline-inner {
+      display: inline-block;
+    }
+    .hero-greece-visual {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    /* WebGL slab (reflective rounded box) — above slogan + reveal */
+    .hero-three {
+      width: min(72vw, 340px);
+      height: min(52vh, 440px);
+      pointer-events: none;
+    }
+    .hero-three canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    #hero-vote {
       min-height: 100vh;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 2rem 0 3rem;
-      background: radial-gradient(1200px 700px at 50% 0%, rgba(245, 245, 245, 0.08) 0%, transparent 55%),
-                  linear-gradient(180deg, #050506 0%, var(--dark) 60%, #050506 100%);
+      align-items: center;
+      padding: 2.5rem 0 3.5rem;
+      border-top: 1px solid rgba(245, 245, 245, 0.1);
+      background: linear-gradient(165deg, var(--ink) 0%, var(--dark) 55%, #060607 100%);
       position: relative;
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 20%, rgba(245, 245, 245, 0.08) 0%, transparent 55%);
-      pointer-events: none;
-    }
-    .hero .container {
+    #hero-vote .container.hero-copy {
       position: relative;
       z-index: 1;
       text-align: center;
+      pointer-events: auto;
+      max-width: min(1000px, 100%);
     }
-    .hero-tag {
-      font-family: 'Sora', sans-serif;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--ember);
-      margin-bottom: 0.5rem;
+    .hero-vote-rotator {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      width: 100%;
     }
-    .hero h1 {
+    .hero-vote-panel {
+      grid-column: 1;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.65s ease, visibility 0.65s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-vote-panel--active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      z-index: 1;
+    }
+    .hero-vote-panel:not(:first-child) {
+      padding: 0 0.5rem;
+    }
+    .hero-vote-figure {
+      margin: 0;
+      width: 100%;
+      max-width: 1000px;
+      margin-inline: auto;
+    }
+    .hero-vote-figure img {
+      width: 100%;
+      max-width: 1000px;
+      height: auto;
+      display: block;
+      margin-inline: auto;
+      border-radius: 10px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+    }
+    .hero-vote-dots {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.35rem;
+    }
+    .hero-vote-dot {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: none;
+      border-radius: 999px;
+      background: rgba(245, 245, 245, 0.22);
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .hero-vote-dot:hover,
+    .hero-vote-dot:focus-visible {
+      background: rgba(245, 245, 245, 0.45);
+      outline: none;
+    }
+    .hero-vote-dot--active {
+      background: rgba(245, 245, 245, 0.85);
+      transform: scale(1.15);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-vote-panel {
+        transition: none;
+      }
+    }
+    #hero-vote .hero-copy h1 {
       font-family: 'Instrument Serif', ui-serif, Georgia, serif;
       font-size: clamp(2.9rem, 11vw, 4.2rem);
       line-height: 0.98;
       text-transform: none;
       color: var(--white);
-      margin-bottom: 1.2rem;
+      margin-bottom: 0;
       letter-spacing: -0.02em;
     }
-    .hero h1 .accent {
+    #hero-vote .hero-copy h1 .accent {
       font-style: italic;
       color: var(--white);
     }
-    .hero p {
-      font-size: 1.05rem;
-      color: var(--cream);
-      opacity: 0.95;
-      max-width: 320px;
-      margin-bottom: 2rem;
+    #hero-vote .hero-copy .eyebrow {
+      color: var(--ember);
+    }
+    #polling-place {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2.5rem 0 3.5rem;
+      border-top: 1px solid rgba(245, 245, 245, 0.1);
+      background: linear-gradient(165deg, var(--ink) 0%, var(--dark) 55%, #060607 100%);
+    }
+    #polling-place .container {
+      width: 100%;
+      max-width: 560px;
+    }
+    #polling-search.cta {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(245, 245, 245, 0.32);
+    }
+    #polling-search.cta:hover,
+    #polling-search.cta:focus {
+      background: rgba(245, 245, 245, 0.06);
+      color: var(--white);
+      filter: none;
+      box-shadow: 0 0 0 1px rgba(245, 245, 245, 0.12);
+    }
+    .polling-search-btn {
+      margin-top: 0.9rem;
+      width: 100%;
+      text-align: center;
     }
     .cta {
       display: inline-block;
@@ -155,39 +445,130 @@
       margin-right: auto;
     }
 
-    /* Leaders (horizontal scroll) */
-    .parties-grid {
-      display: flex;
-      gap: 1rem;
-      overflow-x: auto;
-      padding-bottom: 0.75rem;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+    /* Parties — dark blue tint + extra breathing room */
+    #know-your-parties {
+      position: relative;
+      padding-top: 4.25rem;
+      padding-bottom: 4.75rem;
+      background: linear-gradient(180deg, #0a0e18 0%, #080b14 45%, #070910 100%);
     }
-    /* Full-bleed horizontal scroller while keeping headings in container */
-    #leaders-grid {
+    #know-your-parties::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(ellipse 85% 60% at 50% -8%, rgba(80, 120, 220, 0.07) 0%, transparent 58%);
+    }
+    #know-your-parties .container {
+      position: relative;
+      z-index: 1;
+    }
+    #know-your-parties .section-head {
+      margin-bottom: 2.25rem;
+    }
+    #know-your-parties .container > p:last-child {
+      margin-top: 1.5rem;
+    }
+
+    /* Leaders (horizontal scroll) */
+    .parties-scroll-zone {
+      position: relative;
       width: 100vw;
       margin-left: calc(50% - 50vw);
       margin-right: calc(50% - 50vw);
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
+      padding-top: 0.25rem;
+    }
+    .parties-scroll-zone::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: min(96px, 14vw);
+      pointer-events: none;
+      background: linear-gradient(270deg, transparent, rgba(7, 9, 16, 0.65));
+      z-index: 1;
+    }
+    .parties-scroll-zone::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(96px, 14vw);
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(7, 9, 16, 0.65));
+      z-index: 1;
+    }
+    .parties-grid {
+      display: flex;
+      gap: 1.35rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      width: 100%;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
     }
     .parties-grid::-webkit-scrollbar {
-      height: 10px;
+      display: none;
     }
-    .parties-grid::-webkit-scrollbar-thumb {
-      background: rgba(245, 245, 245, 0.18);
-      border-radius: 999px;
+    .parties-scroll-hint {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      pointer-events: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: rgba(245, 245, 245, 0.85);
+      background: rgba(12, 16, 28, 0.65);
+      border: 1px solid rgba(245, 245, 245, 0.12);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
-    .parties-grid::-webkit-scrollbar-track {
-      background: transparent;
+    .parties-scroll-hint--left {
+      left: clamp(0.65rem, 2.5vw, 1.1rem);
+    }
+    .parties-scroll-hint--right {
+      right: clamp(0.65rem, 2.5vw, 1.1rem);
+    }
+    .parties-scroll-hint svg {
+      width: 22px;
+      height: 22px;
+    }
+    .parties-scroll-hint.parties-scroll-hint--hidden {
+      opacity: 0;
+      visibility: hidden;
+      animation: none !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .parties-scroll-hint {
+        animation: parties-hint-pulse 2.6s ease-in-out infinite;
+      }
+    }
+    @keyframes parties-hint-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.62; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .parties-scroll-hint {
+        animation: none !important;
+      }
     }
     .party-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.25rem;
-      min-width: 300px;
+      padding: 1.4rem 1.6rem;
+      min-width: 380px;
       scroll-snap-align: start;
       transition: background 0.2s, border-color 0.2s;
     }
@@ -213,52 +594,66 @@
       color: var(--cream);
       opacity: 0.9;
     }
+    a.party-card-official {
+      display: inline-block;
+      margin-top: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(245, 245, 245, 0.58);
+      text-decoration: underline;
+      text-underline-offset: 0.18em;
+      text-decoration-thickness: 1px;
+    }
+    a.party-card-official:hover,
+    a.party-card-official:focus {
+      color: rgba(245, 245, 245, 0.82);
+    }
 
-    /* Skills */
+    /* Why vote — full-height band (matches polling section) */
+    #skills {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2.5rem 0 3.5rem;
+      border-top: 1px solid rgba(245, 245, 245, 0.1);
+      background: linear-gradient(165deg, var(--ink) 0%, var(--dark) 55%, #060607 100%);
+    }
+    #skills .container {
+      width: 100%;
+      max-width: 920px;
+    }
     .skills-steps {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.25rem;
-      padding-top: 0.5rem;
+      gap: 1.35rem;
+      padding-top: 0.75rem;
     }
     .skill-step {
       text-align: center;
-      padding: 1.25rem 1rem;
+      padding: 1.35rem 1.25rem;
       border-radius: 14px;
-      background: rgba(245, 245, 245, 0.02);
-      border: 1px solid rgba(245, 245, 245, 0.08);
+      background: rgba(245, 245, 245, 0.03);
+      border: 1px solid rgba(245, 245, 245, 0.1);
     }
-    .skill-icon {
-      width: 44px;
-      height: 44px;
-      margin: 0 auto 0.9rem;
-      display: grid;
-      place-items: center;
-      color: rgba(245, 245, 245, 0.9);
-    }
-    .skill-icon svg {
-      width: 34px;
-      height: 34px;
-    }
-    .skill-step h3 {
-      font-family: 'Inter', -apple-system, system-ui, sans-serif;
-      font-weight: 500;
-      font-size: 1.05rem;
+    .skills-why-text {
+      margin: 0;
+      font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(1.35rem, 3.8vw, 1.85rem);
+      line-height: 1.25;
       color: var(--white);
-      margin-bottom: 0.4rem;
-    }
-    .skill-step p {
-      font-size: 0.92rem;
-      color: var(--cream);
-      line-height: 1.55;
+      letter-spacing: -0.02em;
     }
     @media (min-width: 760px) {
       .skills-steps {
         grid-template-columns: repeat(3, 1fr);
-        gap: 1.75rem;
+        gap: 1.6rem;
       }
       .skill-step {
-        padding: 1.6rem 1.25rem;
+        padding: 1.65rem 1.35rem;
       }
     }
 
@@ -372,20 +767,59 @@
       .container {
         padding: 0 1.5rem;
       }
-      #leaders-grid {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+      .parties-grid {
+        padding-left: 2rem;
+        padding-right: 2rem;
       }
     }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="container">
-      <p class="eyebrow">Make your voice count</p>
-      <h1><span class="accent">Go vote.</span> Don’t let others decide your future.</h1>
+  <section id="hero-greece" class="hero-greece" tabindex="-1" aria-labelledby="hero-greece-heading">
+    <div class="hero-greece-ambient" aria-hidden="true">
+      <span class="hero-greece-ambient-orb hero-greece-ambient-orb--a"></span>
+      <span class="hero-greece-ambient-orb hero-greece-ambient-orb--b"></span>
     </div>
-  </header>
+    <div class="hero-greece-reveal" aria-hidden="true"></div>
+    <div class="hero-greece-slogan">
+      <h2 id="hero-greece-heading" class="hero-greece-display">
+        <span class="hero-greece-display-line"><span class="hero-greece-display-inner">Greece can be a beautiful place</span></span>
+        <span class="hero-greece-display-line hero-greece-display-line--finale"><span class="hero-greece-display-inner">again.</span></span>
+      </h2>
+      <p class="hero-greece-tagline"><span class="hero-greece-tagline-inner">It’s in your hand.</span></p>
+    </div>
+    <div class="hero-greece-visual" aria-hidden="true">
+      <div id="hero-three" class="hero-three"></div>
+    </div>
+    <div class="hero-greece-vignette" aria-hidden="true"></div>
+    <div class="hero-greece-grain" aria-hidden="true"></div>
+  </section>
+
+  <section id="hero-vote" class="hero-vote" aria-roledescription="carousel" aria-label="Vote — headline and campaign graphics">
+    <div class="container hero-copy">
+      <div class="hero-vote-rotator" id="hero-vote-rotator" aria-live="polite">
+        <div class="hero-vote-panel hero-vote-panel--active" data-hero-slide="0" role="group" aria-label="Headline" aria-hidden="false">
+          <p class="eyebrow">Make your voice count</p>
+          <h1 id="hero-vote-heading"><span class="accent">Go vote.</span> Don’t let others decide your future.</h1>
+        </div>
+        <div class="hero-vote-panel" data-hero-slide="1" role="group" aria-hidden="true" aria-label="Campaign graphic one">
+          <figure class="hero-vote-figure">
+            <img src="assets/hero-vote-populism-libs.png" alt="Campaign poster: You might not go vote. But they will. Will you let them decide your future? Scene at blue voting booths with four diverse voters." width="1000" height="667" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+        <div class="hero-vote-panel" data-hero-slide="2" role="group" aria-hidden="true" aria-label="Campaign graphic two">
+          <figure class="hero-vote-figure">
+            <img src="assets/hero-vote-populism-cons.png" alt="Campaign poster: You might not go vote. But they will. Will you let them decide your future? Scene at blue voting booths with four voters in varied dress." width="1000" height="667" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+      <div class="hero-vote-dots" role="tablist" aria-label="Choose slide">
+        <button type="button" class="hero-vote-dot hero-vote-dot--active" role="tab" aria-selected="true" aria-label="Headline: Go vote" data-hero-dot="0"></button>
+        <button type="button" class="hero-vote-dot" role="tab" aria-selected="false" aria-label="Graphic 1" data-hero-dot="1"></button>
+        <button type="button" class="hero-vote-dot" role="tab" aria-selected="false" aria-label="Graphic 2" data-hero-dot="2"></button>
+      </div>
+    </div>
+  </section>
 
   <section id="know-your-parties" aria-labelledby="leaders-heading">
     <div class="container">
@@ -394,10 +828,22 @@
         <h2 id="leaders-heading">Know <span>your parties</span></h2>
         <p>From left to right on the spectrum — leaders, values, and official links.</p>
       </div>
-      <div class="parties-grid" id="leaders-grid">
-        <p class="loading" style="opacity:0.8;">Loading leaders…</p>
+      <div class="parties-scroll-zone">
+        <div class="parties-grid" id="leaders-grid">
+          <p class="loading" style="opacity:0.8;">Loading leaders…</p>
+        </div>
+        <div class="parties-scroll-hint parties-scroll-hint--left parties-scroll-hint--hidden" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 7 10 12 15 17" />
+          </svg>
+        </div>
+        <div class="parties-scroll-hint parties-scroll-hint--right parties-scroll-hint--hidden" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 7 14 12 9 17" />
+          </svg>
+        </div>
       </div>
-      <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Always verify details on official party websites and reputable voter guides.</p>
+      <p style="font-size: 0.85rem; opacity: 0.8;">Always verify details on official party websites and reputable voter guides.</p>
     </div>
   </section>
 
@@ -411,7 +857,7 @@
       <div class="party-card" style="padding: 1.25rem;">
         <label for="polling-address" style="display:block; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ember); margin-bottom:0.35rem;">Address</label>
         <input id="polling-address" type="text" placeholder="Type your address…" style="width:100%; font-family:inherit; font-size:1rem; padding:0.8rem 0.9rem; border-radius:10px; border:1px solid rgba(245, 245, 245, 0.18); background: rgba(245, 245, 245, 0.04); color: rgba(245, 245, 245, 0.85);" />
-        <button type="button" id="polling-search" class="cta" style="margin-top:0.9rem; width:100%; text-align:center;">Search</button>
+        <button type="button" id="polling-search" class="cta polling-search-btn">Search</button>
         <p id="polling-result" style="margin-top:0.9rem; font-size:0.9rem; opacity:0.9; display:none;"></p>
       </div>
     </div>
@@ -422,10 +868,17 @@
       <div class="section-head">
         <p class="eyebrow">Basics</p>
         <h2 id="skills-heading">Why <span>vote</span></h2>
-        <p>What you learn when you engage with politics and voting.</p>
       </div>
       <div class="skills-steps" id="skills-steps">
-        <p class="loading" style="opacity:0.8;">Loading…</p>
+        <div class="skill-step">
+          <p class="skills-why-text">Your vote forces politicians to listen</p>
+        </div>
+        <div class="skill-step">
+          <p class="skills-why-text">Not voting = someone else decides for you</p>
+        </div>
+        <div class="skill-step">
+          <p class="skills-why-text">Democracy only works with participation</p>
+        </div>
       </div>
     </div>
   </section>
@@ -482,10 +935,40 @@
       return null;
     }
 
+    function bindPartiesScrollHintOnce() {
+      const grid = document.getElementById('leaders-grid');
+      const hintLeft = document.querySelector('.parties-scroll-hint--left');
+      const hintRight = document.querySelector('.parties-scroll-hint--right');
+      if (!grid || (!hintLeft && !hintRight)) return;
+
+      function updatePartiesScrollHint() {
+        requestAnimationFrame(() => {
+          const overflow = grid.scrollWidth > grid.clientWidth + 1;
+          const atEnd = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 2;
+          const atStart = grid.scrollLeft <= 2;
+          if (hintLeft) {
+            hintLeft.classList.toggle('parties-scroll-hint--hidden', !overflow || atStart);
+          }
+          if (hintRight) {
+            hintRight.classList.toggle('parties-scroll-hint--hidden', !overflow || atEnd);
+          }
+        });
+      }
+
+      if (!grid.dataset.partiesHintBound) {
+        grid.dataset.partiesHintBound = '1';
+        grid.addEventListener('scroll', updatePartiesScrollHint, { passive: true });
+        window.addEventListener('resize', updatePartiesScrollHint);
+        window.addEventListener('orientationchange', updatePartiesScrollHint);
+      }
+      updatePartiesScrollHint();
+    }
+
     function renderLeaders(leaders) {
       const grid = document.getElementById('leaders-grid');
       if (!leaders || !leaders.length) {
         grid.innerHTML = '<p style="opacity:0.8;">No leaders configured yet. Add them in the admin.</p>';
+        bindPartiesScrollHintOnce();
         return;
       }
       const sorted = [...leaders].sort((a, b) => (a.spectrumOrder ?? 0) - (b.spectrumOrder ?? 0));
@@ -507,53 +990,13 @@
               <p style="margin-bottom:0.6rem;">${escapeHtml(l.briefCv || '')}</p>
               ${l.motto ? `<p style="margin-bottom:0.6rem; opacity:0.9;"><em>“${escapeHtml(l.motto)}”</em></p>` : ''}
               ${values.length ? `<div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.65rem;">${values.map(v => `<span style="border:1px solid rgba(254, 250, 224, 0.14); background: rgba(254, 250, 224, 0.04); padding:0.25rem 0.5rem; border-radius:999px; font-size:0.8rem; opacity:0.95;">${escapeHtml(v)}</span>`).join('')}</div>` : ''}
-              ${safeLink ? `<a href="${safeLink}" target="_blank" rel="noopener noreferrer" style="color:var(--ember); text-decoration:none; font-weight:600;">Official website →</a>` : ''}
+              ${safeLink ? `<a href="${safeLink}" class="party-card-official" target="_blank" rel="noopener noreferrer">Official website</a>` : ''}
             </div>
           </div>
         </article>
         `;
       }).join('');
-    }
-
-    function renderSkills(skills) {
-      const wrap = document.getElementById('skills-steps');
-      if (!wrap) return;
-      if (!skills || !skills.length) {
-        wrap.innerHTML = '<p style="opacity:0.8;">No items configured.</p>';
-        return;
-      }
-
-      const icons = [
-        // loop
-        `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M20 7a8 8 0 0 0-14.5-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M4 7V3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M4 7h3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M4 17a8 8 0 0 0 14.5 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M20 17v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M20 17h-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>`,
-        // bolt
-        `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M13 2 4 14h7l-1 8 10-14h-7l0-6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-        </svg>`,
-        // like + stars
-        `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M9.5 10.5V20H6.8a2 2 0 0 1-2-2v-5.2a2 2 0 0 1 .6-1.4l3-3a2 2 0 0 1 3.4 1.4v.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M9.5 20h8a2 2 0 0 0 2-2v-4.5a2 2 0 0 0-2-2h-4l.8-3.8a2 2 0 0 0-3.7-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-          <path d="M16.8 3.2l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5.5-1.3Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-          <path d="M20.2 6.2l.4 1.1 1.1.4-1.1.4-.4 1.1-.4-1.1-1.1-.4 1.1-.4.4-1.1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-        </svg>`
-      ];
-
-      const sorted = [...skills].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).slice(0, 3);
-      wrap.innerHTML = sorted.map((s, i) => `
-        <div class="skill-step">
-          <div class="skill-icon">${icons[i % icons.length]}</div>
-          <h3>${escapeHtml(s.title || '')}</h3>
-          <p>${escapeHtml(s.description || '')}</p>
-        </div>
-      `).join('');
+      bindPartiesScrollHintOnce();
     }
 
     function renderQuestion() {
@@ -627,18 +1070,191 @@
       });
     }
 
+    function initHeroVoteRotator() {
+      const section = document.getElementById('hero-vote');
+      const rotator = document.getElementById('hero-vote-rotator');
+      if (!section || !rotator) return;
+      const panels = rotator.querySelectorAll('.hero-vote-panel');
+      const dots = document.querySelectorAll('.hero-vote-dot');
+      if (!panels.length || !dots.length) return;
+
+      var index = 0;
+      var timer;
+      var duration = 6500;
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function show(i) {
+        index = ((i % panels.length) + panels.length) % panels.length;
+        panels.forEach(function (p, j) {
+          var on = j === index;
+          p.classList.toggle('hero-vote-panel--active', on);
+          p.setAttribute('aria-hidden', on ? 'false' : 'true');
+        });
+        dots.forEach(function (d, j) {
+          var on = j === index;
+          d.classList.toggle('hero-vote-dot--active', on);
+          d.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+      }
+
+      function next() {
+        show(index + 1);
+      }
+
+      function restartTimer() {
+        if (reduced) return;
+        clearInterval(timer);
+        timer = setInterval(next, duration);
+      }
+
+      dots.forEach(function (d, j) {
+        d.addEventListener('click', function () {
+          show(j);
+          restartTimer();
+        });
+      });
+
+      if (!reduced) {
+        restartTimer();
+        section.addEventListener('mouseenter', function () {
+          clearInterval(timer);
+        });
+        section.addEventListener('mouseleave', restartTimer);
+      }
+    }
+
     (async function init() {
       const content = await loadContent();
       if (content) {
         renderLeaders(content.leaders);
-        renderSkills(content.skills);
         quizData = content.quizzes || [];
       } else {
         document.getElementById('leaders-grid').innerHTML = '<p style="opacity:0.8;">Content could not be loaded.</p>';
-        document.getElementById('skills-steps').innerHTML = '<p style="opacity:0.8;">Content could not be loaded.</p>';
+        bindPartiesScrollHintOnce();
       }
       renderQuestion();
       initPollingDummy();
+    })();
+
+    initHeroVoteRotator();
+  </script>
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js';
+    import { RoundedBoxGeometry } from 'https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/geometries/RoundedBoxGeometry.js';
+
+    const el = document.getElementById('hero-three');
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (el) el.style.display = 'none';
+    } else {
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+      el.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+      camera.position.set(0, 0.05, 4.2);
+
+      const pmremGenerator = new THREE.PMREMGenerator(renderer);
+      pmremGenerator.compileEquirectangularShader();
+
+      const geo = new RoundedBoxGeometry(1.15, 1.62, 0.2, 10, 0.12);
+      const mat = new THREE.MeshPhysicalMaterial({
+        color: 0xffffff,
+        metalness: 1,
+        roughness: 0.06,
+        envMapIntensity: 1.35,
+        clearcoat: 1,
+        clearcoatRoughness: 0.06,
+        iridescence: 0.08,
+        iridescenceIOR: 1.06
+      });
+      const slab = new THREE.Mesh(geo, mat);
+      slab.rotation.x = 0.12;
+      scene.add(slab);
+
+      const amb = new THREE.AmbientLight(0xffffff, 0.35);
+      scene.add(amb);
+      const key = new THREE.DirectionalLight(0xffffff, 1.1);
+      key.position.set(3, 6, 8);
+      scene.add(key);
+      const rim = new THREE.DirectionalLight(0xdbe8ff, 0.55);
+      rim.position.set(-4, 2, -3);
+      scene.add(rim);
+
+      const texLoader = new THREE.TextureLoader();
+      texLoader.crossOrigin = 'anonymous';
+      texLoader.load(
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2400&q=85',
+        (tex) => {
+          tex.mapping = THREE.EquirectangularReflectionMapping;
+          tex.colorSpace = THREE.SRGBColorSpace;
+          const rt = pmremGenerator.fromEquirectangular(tex);
+          scene.environment = rt.texture;
+          tex.dispose();
+          pmremGenerator.dispose();
+        },
+        undefined,
+        () => {
+          pmremGenerator.dispose();
+        }
+      );
+
+      function resizeRenderer() {
+        const cw = el.clientWidth;
+        const ch = el.clientHeight;
+        const w = cw || 320;
+        const h = ch || 400;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h, false);
+      }
+
+      resizeRenderer();
+      requestAnimationFrame(() => resizeRenderer());
+      const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(() => resizeRenderer()) : null;
+      if (ro) ro.observe(el);
+      window.addEventListener('resize', resizeRenderer);
+
+      let frame = 0;
+      function tick() {
+        frame = requestAnimationFrame(tick);
+        slab.rotation.y += 0.0035;
+        renderer.render(scene, camera);
+      }
+      tick();
+    }
+  </script>
+  <script>
+    (function () {
+      const sec = document.getElementById('hero-greece');
+      if (!sec) return;
+      /* Subtle headline parallax on fine pointers */
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (!reduceMotion && finePointer) {
+        sec.classList.add('hero-greece-mode-parallax');
+        sec.addEventListener('pointermove', function (e) {
+          if (e.pointerType === 'touch') return;
+          var r = sec.getBoundingClientRect();
+          var px = ((e.clientX - r.left) / r.width) * 2 - 1;
+          var py = ((e.clientY - r.top) / r.height) * 2 - 1;
+          sec.style.setProperty('--hero-tilt-x', px.toFixed(4));
+          sec.style.setProperty('--hero-tilt-y', py.toFixed(4));
+        });
+        sec.addEventListener('pointerleave', function () {
+          sec.style.setProperty('--hero-tilt-x', '0');
+          sec.style.setProperty('--hero-tilt-y', '0');
+        });
+      }
+      /* Touch: tap to show same low-opacity photo as hover */
+      if (!window.matchMedia('(hover: hover)').matches) {
+        sec.addEventListener('click', function () {
+          sec.classList.toggle('hero-greece-touch-open');
+        });
+      }
     })();
   </script>
 </body>
