@@ -282,7 +282,10 @@
 
   <div class="save-bar">
     <span class="msg" id="save-msg"></span>
-    <button type="button" class="save-btn" id="save-btn">Save all changes</button>
+    <div style="display:flex; gap:0.6rem; align-items:center;">
+      <button type="button" class="save-btn" id="import-btn" style="font-size:0.9rem; padding:0.6rem 1.1rem; background:transparent; color:rgba(245,245,245,0.85); border:1px solid rgba(245,245,245,0.22);">Import from content.json</button>
+      <button type="button" class="save-btn" id="save-btn">Save all changes</button>
+    </div>
   </div>
 
   <div class="modal-overlay" id="modal">
@@ -652,8 +655,7 @@
       });
     });
 
-    // Save
-    document.getElementById('save-btn').onclick = async () => {
+    async function saveToServer() {
       const msg = document.getElementById('save-msg');
       msg.className = 'msg';
       msg.textContent = 'Saving…';
@@ -666,9 +668,41 @@
         if (!r.ok) throw new Error(await r.text());
         msg.textContent = 'Saved.';
         msg.className = 'msg ok';
+        return true;
       } catch (e) {
         msg.textContent = 'Save failed. Is the server running?';
         msg.className = 'msg err';
+        return false;
+      }
+    }
+
+    // Save
+    document.getElementById('save-btn').onclick = saveToServer;
+
+    // Import from repo file and overwrite server (fixes Mongo being out of sync)
+    document.getElementById('import-btn').onclick = async () => {
+      const msg = document.getElementById('save-msg');
+      const importBtn = document.getElementById('import-btn');
+      importBtn.disabled = true;
+      msg.className = 'msg';
+      msg.textContent = 'Importing from content.json…';
+      try {
+        const r = await fetch('/content.json', { cache: 'no-store' });
+        if (!r.ok) throw new Error(await r.text());
+        const fileData = await r.json();
+        data = {
+          parties: Array.isArray(fileData.parties) ? fileData.parties : [],
+          leaders: Array.isArray(fileData.leaders) ? fileData.leaders : [],
+          skills: Array.isArray(fileData.skills) ? fileData.skills : [],
+          quizzes: Array.isArray(fileData.quizzes) ? fileData.quizzes : []
+        };
+        renderAll();
+        await saveToServer();
+      } catch (e) {
+        msg.textContent = 'Import failed. Make sure /content.json exists and the server can read it.';
+        msg.className = 'msg err';
+      } finally {
+        importBtn.disabled = false;
       }
     };
 

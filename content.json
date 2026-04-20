@@ -23,26 +23,20 @@
     {
       "id": "skill-1",
       "order": 1,
-      "title": "Critical thinking",
-      "description": "Weigh policies, spot misinformation, and form your own views from evidence."
+      "title": "Your vote forces politicians to listen",
+      "description": ""
     },
     {
       "id": "skill-2",
       "order": 2,
-      "title": "Civic literacy",
-      "description": "Understand how elections, parliaments, and governments actually work."
+      "title": "Not voting = someone else decides for you",
+      "description": ""
     },
     {
       "id": "skill-3",
       "order": 3,
-      "title": "Informed debate",
-      "description": "Discuss issues clearly and respectfully with people who disagree."
-    },
-    {
-      "id": "skill-4",
-      "order": 4,
-      "title": "Accountability",
-      "description": "Hold representatives to their promises and use your vote to demand change."
+      "title": "Democracy only works with participation",
+      "description": ""
     }
   ],
   "leaders": [
