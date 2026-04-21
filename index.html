@@ -725,9 +725,9 @@
     }
     .quiz-next {
       margin-top: 1rem;
-      background: rgba(245,245,245,0.14);
-      color: var(--dark);
-      border: 1px solid rgba(245,245,245,0.2);
+      background: rgba(245, 245, 245, 0.10);
+      color: rgba(245, 245, 245, 0.96);
+      border: 1px solid rgba(245, 245, 245, 0.22);
       font-family: 'Inter', -apple-system, system-ui, sans-serif;
       font-weight: 600;
       font-size: 0.95rem;
@@ -735,6 +735,12 @@
       border-radius: 999px;
       cursor: pointer;
       display: none;
+    }
+    .quiz-next:hover,
+    .quiz-next:focus-visible {
+      background: rgba(245, 245, 245, 0.14);
+      border-color: rgba(245, 245, 245, 0.30);
+      outline: none;
     }
     .quiz-next.show {
       display: inline-block;
@@ -1002,10 +1008,22 @@
     function renderQuestion() {
       const q = quizData[currentQ];
       if (!q) {
+        const total = quizData.length || 0;
+        const pct = total ? score / total : 0;
+        let msg = total ? `You got ${score} out of ${total}. ` : '';
+        if (!total) {
+          msg = 'No questions loaded.';
+        } else if (pct < 0.4) {
+          msg += 'Good start — but take 5 minutes to revise. Scroll up to “Know your parties” and open the official websites to compare programmes and priorities.';
+        } else if (pct < 0.75) {
+          msg += 'Nice — you’re on your way. For extra confidence, scroll up to “Know your parties” and check the official websites for the top 2–3 parties you’re considering.';
+        } else {
+          msg += 'Strong — you look well prepared. Do one last check on the official websites, then go vote.';
+        }
         questionEl.textContent = 'Quiz complete!';
         optionsEl.innerHTML = '';
         feedbackEl.className = 'quiz-feedback show correct';
-        feedbackEl.textContent = quizData.length ? `You got ${score} out of ${quizData.length}. Well done — now go vote!` : 'No questions loaded.';
+        feedbackEl.textContent = msg;
         nextBtn.classList.remove('show');
         scoreEl.textContent = '';
         return;
@@ -1033,12 +1051,14 @@
       if (idx === q.correct) {
         score++;
         btn.classList.add('correct');
-        feedbackEl.textContent = 'Correct!';
+        feedbackEl.textContent = q.explanation ? `Correct! ${q.explanation}` : 'Correct!';
         feedbackEl.className = 'quiz-feedback show correct';
       } else {
         btn.classList.add('wrong');
         if (options[q.correct]) options[q.correct].classList.add('correct');
-        feedbackEl.textContent = 'Not quite. The correct answer is highlighted.';
+        feedbackEl.textContent = q.explanation
+          ? `Not quite. The correct answer is highlighted. ${q.explanation}`
+          : 'Not quite. The correct answer is highlighted.';
         feedbackEl.className = 'quiz-feedback show wrong';
       }
       nextBtn.classList.add('show');

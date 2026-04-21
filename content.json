@@ -199,53 +199,91 @@
   "quizzes": [
     {
       "id": "quiz-1",
-      "question": "What is the main purpose of voting in a democracy?",
+      "question": "Before you choose a party, what is the most reliable first step to understand what they stand for?",
       "options": [
-        "To choose representatives and influence policy",
-        "To avoid paying taxes",
-        "To get free public transport"
+        "Read the party’s programme/official website and compare it to their record and credible reporting",
+        "Only follow viral clips and memes because they’re short",
+        "Wait for a celebrity to say what to do"
       ],
-      "correct": 0
+      "correct": 0,
+      "explanation": "Preparation starts with primary sources (official programme/website) plus independent reporting. Short clips can be misleading without context."
     },
     {
       "id": "quiz-2",
-      "question": "Which of these is usually a responsibility of citizens in democratic elections?",
+      "question": "Which approach is the fairest way to compare parties you disagree with?",
       "options": [
-        "Registering to vote and showing up on election day",
-        "Donating to every party",
-        "Running the counting of ballots personally"
+        "Summarise their strongest argument in your own words before criticising it",
+        "Only read sources that already agree with you",
+        "Judge them only by a single quote taken out of context"
       ],
-      "correct": 0
+      "correct": 0,
+      "explanation": "If you can accurately restate an opposing view, you’re less likely to vote based on misunderstandings."
     },
     {
       "id": "quiz-3",
-      "question": "Why does voter turnout matter?",
+      "question": "From the party cards on this site, which group explicitly says it opposes EU & NATO membership?",
       "options": [
-        "Elections better reflect the will of the people when more people vote",
-        "Only the first 1000 voters count",
-        "Turnout does not affect results"
+        "KKE — Communist Party of Greece",
+        "PASOK – Movement for Change",
+        "Nea Dimokratia — New Democracy"
       ],
-      "correct": 0
+      "correct": 0,
+      "explanation": "In the leaders section, KKE’s description includes opposition to EU/NATO membership."
     },
     {
       "id": "quiz-4",
-      "question": "What can you do if you cannot vote in person on election day?",
+      "question": "Which leader on this page is identified as Prime Minister?",
       "options": [
-        "Use postal or early voting if available in your country",
-        "Send a friend to vote for you",
-        "Nothing; you must vote in person"
+        "Kyriakos Mitsotakis",
+        "Nikos Androulakis",
+        "Zoe Konstantopoulou"
       ],
-      "correct": 0
+      "correct": 0,
+      "explanation": "The Nea Dimokratia entry notes “Prime Minister” in the brief CV."
     },
     {
       "id": "quiz-5",
-      "question": "Getting informed before voting typically includes:",
+      "question": "Which signal is most useful to judge whether a political claim is trustworthy?",
       "options": [
-        "Reading party programmes and checking fact-based sources",
-        "Only watching one TV channel",
-        "Copying the vote of a celebrity"
+        "It cites evidence you can check (data, documents, official sources) and multiple credible outlets report the same facts",
+        "It makes you feel angry or thrilled, so it must be true",
+        "It has lots of likes and shares"
       ],
-      "correct": 0
+      "correct": 0,
+      "explanation": "Virality and emotion aren’t evidence. Cross-checkable sources and independent corroboration are."
+    },
+    {
+      "id": "quiz-6",
+      "question": "If a party emphasises “strict immigration enforcement” and “national sovereignty”, which party card on this page matches that description?",
+      "options": [
+        "Elliniki Lysi — Greek Solution",
+        "SYRIZA — Coalition of the Radical Left – Progressive Alliance",
+        "Nea Aristera — New Left"
+      ],
+      "correct": 0,
+      "explanation": "The Greek Solution entry highlights strict immigration enforcement and national sovereignty."
+    },
+    {
+      "id": "quiz-7",
+      "question": "What’s the best way to handle a policy area you don’t understand (e.g., economy, migration, climate) before voting?",
+      "options": [
+        "Pick 2–3 trusted explainers, learn the basics, then compare parties on that single issue using primary sources",
+        "Avoid it completely and decide only on vibes",
+        "Assume the loudest speaker is correct"
+      ],
+      "correct": 0,
+      "explanation": "Being “prepared” doesn’t mean knowing everything — it means knowing enough to compare parties on what matters to you."
+    },
+    {
+      "id": "quiz-8",
+      "question": "On this page, which description fits PASOK – Movement for Change?",
+      "options": [
+        "Centre-left, social democratic; pro-European integration",
+        "Far-right, religious conservative; opposition to secularisation",
+        "Right-wing populist; “Greece First”"
+      ],
+      "correct": 0,
+      "explanation": "PASOK’s entry is described as social democratic and pro-European integration."
     }
   ]
 }
