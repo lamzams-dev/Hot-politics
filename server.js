@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { MongoClient } = require('mongodb');
+const multer = require('multer');
+const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -104,12 +106,37 @@ function writeContentSync(data) {
 app.use(express.json({ limit: '1mb' }));
 app.use(express.static(__dirname));
 
+const UPLOAD_DIR = path.join(__dirname, 'assets', 'leaders');
+fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (_req, _file, cb) => cb(null, UPLOAD_DIR),
+    filename: (_req, file, cb) => {
+      const ext = (path.extname(file.originalname || '') || '').toLowerCase();
+      const safeExt = ['.png', '.jpg', '.jpeg', '.webp'].includes(ext) ? ext : '.png';
+      cb(null, `${crypto.randomUUID()}${safeExt}`);
+    }
+  }),
+  limits: { fileSize: 3 * 1024 * 1024 }, // 3MB
+  fileFilter: (_req, file, cb) => {
+    const ok = ['image/png', 'image/jpeg', 'image/webp'].includes(file.mimetype);
+    cb(ok ? null : new Error('Unsupported file type'), ok);
+  }
+});
+
 app.use((req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, OPTIONS');
   res.set('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.sendStatus(200);
   next();
+});
+
+app.post('/api/leaders/photo', upload.single('photo'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'Missing photo file' });
+  const url = `/assets/leaders/${req.file.filename}`;
+  res.json({ ok: true, url });
 });
 
 app.get('/api/content', async (req, res) => {

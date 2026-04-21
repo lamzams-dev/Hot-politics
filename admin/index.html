@@ -456,6 +456,11 @@
             <input type="text" name="photoUrl" value="${escapeHtml(l.photoUrl || '')}" placeholder="https://… or /assets/leaders/…" />
           </div>
           <div class="form-group">
+            <label>Upload photo (PNG/JPG/WebP)</label>
+            <input type="file" name="photoFile" accept="image/png,image/jpeg,image/webp" />
+            <div style="margin-top:0.4rem; font-size:0.85rem; color:var(--ember); opacity:0.9;">This will upload to <code>/assets/leaders/</code> and fill Photo URL automatically.</div>
+          </div>
+          <div class="form-group">
             <label>Brief CV</label>
             <textarea name="briefCv" placeholder="1–2 sentence bio…">${escapeHtml(l.briefCv || '')}</textarea>
           </div>
@@ -500,10 +505,39 @@
           coreValues,
           officialUrl: f.officialUrl.value.trim()
         };
-        if (index !== 'new') data.leaders[+index] = item;
-        else data.leaders.push(item);
-        hideModal();
-        renderLeaders();
+        const file = f.photoFile && f.photoFile.files ? f.photoFile.files[0] : null;
+
+        async function finalizeSave() {
+          if (index !== 'new') data.leaders[+index] = item;
+          else data.leaders.push(item);
+          hideModal();
+          renderLeaders();
+        }
+
+        (async () => {
+          if (!file) return finalizeSave();
+          const msg = document.getElementById('save-msg');
+          msg.className = 'msg';
+          msg.textContent = 'Uploading photo…';
+          try {
+            const fd = new FormData();
+            fd.append('photo', file);
+            const r = await fetch('/api/leaders/photo', { method: 'POST', body: fd });
+            if (!r.ok) throw new Error(await r.text());
+            const out = await r.json();
+            if (!out || !out.url) throw new Error('Upload failed');
+            item.photoUrl = out.url;
+            f.photoUrl.value = out.url;
+            msg.textContent = 'Photo uploaded.';
+            msg.className = 'msg ok';
+          } catch (err) {
+            const msg = document.getElementById('save-msg');
+            msg.textContent = 'Photo upload failed. You can still save without it.';
+            msg.className = 'msg err';
+          } finally {
+            finalizeSave();
+          }
+        })();
       };
     }
 
