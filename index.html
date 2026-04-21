@@ -609,7 +609,7 @@
       color: rgba(245, 245, 245, 0.82);
     }
 
-    /* Why vote — full-height band (matches polling section) */
+    /* Why vote — 3-feature row + chart */
     #skills {
       min-height: 100vh;
       min-height: 100dvh;
@@ -617,44 +617,193 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2.5rem 0 3.5rem;
+      padding: 4.75rem 0 5rem;
       border-top: 1px solid rgba(245, 245, 245, 0.1);
       background: linear-gradient(165deg, var(--ink) 0%, var(--dark) 55%, #060607 100%);
     }
-    #skills .container {
+    #skills .section-head {
       width: 100%;
-      max-width: 920px;
+      max-width: 1120px;
+      padding: 0 1.25rem;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1.35rem;
     }
-    .skills-steps {
+    #skills .section-head .eyebrow {
+      margin-bottom: 0.85rem;
+    }
+    .whyvote-grid {
+      width: 100%;
+      max-width: 1120px;
+      padding: 0 1.25rem;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.25rem;
+    }
+    .whyvote-features {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.35rem;
-      padding-top: 0.75rem;
+      gap: 2rem;
+      padding-top: 0.25rem;
     }
-    .skill-step {
+    .whyvote-feature {
       text-align: center;
-      padding: 1.35rem 1.25rem;
-      border-radius: 14px;
-      background: rgba(245, 245, 245, 0.03);
-      border: 1px solid rgba(245, 245, 245, 0.1);
+      padding: 0.5rem 0.25rem 0.75rem;
+      transition: transform 0.25s ease;
     }
-    .skills-why-text {
+    .whyvote-feature:hover {
+      transform: translateY(-2px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .whyvote-feature,
+      .whyvote-feature:hover {
+        transition: none;
+        transform: none;
+      }
+    }
+    .whyvote-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 0.9rem;
+      display: grid;
+      place-items: center;
+    }
+    .whyvote-icon svg {
+      width: 34px;
+      height: 34px;
+      stroke: rgba(245, 245, 245, 0.92);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .whyvote-icon svg {
+        animation: whyvote-icon-float 3.6s ease-in-out infinite;
+      }
+      .whyvote-feature:nth-child(2) .whyvote-icon svg { animation-delay: -1.1s; }
+      .whyvote-feature:nth-child(3) .whyvote-icon svg { animation-delay: -2.1s; }
+      @keyframes whyvote-icon-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-3px); }
+      }
+    }
+    .whyvote-feature h3 {
       margin: 0;
       font-family: 'Instrument Serif', ui-serif, Georgia, serif;
       font-weight: 400;
-      font-size: clamp(1.35rem, 3.8vw, 1.85rem);
-      line-height: 1.25;
-      color: var(--white);
+      font-size: clamp(1.55rem, 4.6vw, 2.05rem);
+      line-height: 1.14;
       letter-spacing: -0.02em;
+      color: rgba(245, 245, 245, 0.96);
     }
-    @media (min-width: 760px) {
-      .skills-steps {
+    .whyvote-feature p {
+      margin: 0.55rem 0 0;
+      color: rgba(245, 245, 245, 0.62);
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+    @media (min-width: 820px) {
+      .whyvote-features {
         grid-template-columns: repeat(3, 1fr);
-        gap: 1.6rem;
+        gap: 2.15rem;
       }
-      .skill-step {
-        padding: 1.65rem 1.35rem;
-      }
+    }
+
+    .whyvote-chart {
+      padding-top: 0.5rem;
+      padding-bottom: 3.75rem;
+    }
+    .whyvote-chart-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(245, 245, 245, 0.12);
+      overflow: hidden;
+      max-width: 896px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .whyvote-chart-wrap canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .whyvote-source {
+      margin-top: 0.85rem;
+      font-size: 0.82rem;
+      color: rgba(245, 245, 245, 0.62);
+      text-align: center;
+    }
+    .whyvote-source a {
+      color: rgba(245, 245, 245, 0.72);
+      text-decoration: underline;
+      text-underline-offset: 0.18em;
+      text-decoration-thickness: 1px;
+    }
+    .whyvote-source a:hover,
+    .whyvote-source a:focus {
+      color: rgba(245, 245, 245, 0.9);
+    }
+    .whyvote-ledger {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      width: min(220px, calc(100% - 28px));
+      border-radius: 10px;
+      padding: 0.6rem 0.7rem;
+      background: rgba(20, 70, 200, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      pointer-events: none;
+      transform: translate3d(-9999px, -9999px, 0);
+    }
+    .whyvote-ledger-title {
+      margin: 0 0 0.4rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: rgba(255, 255, 255, 0.98);
+    }
+    .whyvote-ledger-row {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 0.88rem;
+      line-height: 1.3;
+      margin-top: 0.25rem;
+    }
+    .whyvote-ledger-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      flex: 0 0 auto;
+    }
+    .whyvote-ledger-row code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.95em;
+      color: rgba(255, 255, 255, 0.92);
+      background: transparent;
+    }
+    .whyvote-afterline {
+      margin: 1.25rem auto 0;
+      max-width: 1120px;
+      padding: 0 1.25rem;
+      font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+      font-size: clamp(2.1rem, 8vw, 2.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      text-align: center;
+    }
+    .whyvote-afterline-spacer {
+      height: 3.25rem;
     }
 
     /* Quiz */
@@ -870,23 +1019,72 @@
   </section>
 
   <section id="skills" aria-labelledby="skills-heading">
-    <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Basics</p>
-        <h2 id="skills-heading">Why <span>vote</span></h2>
+    <div class="section-head">
+      <p class="eyebrow">THE BASICS, IN ONE MINUTE</p>
+      <h2 id="skills-heading">Why <span>vote</span></h2>
+    </div>
+
+    <div class="whyvote-grid">
+      <div class="whyvote-features" aria-label="Why vote key points">
+        <article class="whyvote-feature">
+          <div class="whyvote-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21s7-4.5 7-10V7l-7-4-7 4v4c0 5.5 7 10 7 10z" />
+              <path d="M9.5 12.5l1.8 1.8L15 10.6" />
+            </svg>
+          </div>
+          <h3>It’s your right.</h3>
+          <p>Voting was not always a given. People have fought and died to grant everyone the right to vote.</p>
+        </article>
+
+        <article class="whyvote-feature">
+          <div class="whyvote-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12h18" />
+              <path d="M12 3v18" />
+              <path d="M7.5 7.5h9v9h-9z" />
+            </svg>
+          </div>
+          <h3>Your vote forces politicians to listen.</h3>
+          <p>It gives you the power to influence government decisions and shape the future of your communities.</p>
+        </article>
+
+        <article class="whyvote-feature">
+          <div class="whyvote-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v18" />
+              <path d="M5 7h14" />
+              <path d="M7 7v4a5 5 0 0 0 10 0V7" />
+            </svg>
+          </div>
+          <h3>Voting is the pillar of a democratic society.</h3>
+          <p>Democracy only works with participation.</p>
+        </article>
       </div>
-      <div class="skills-steps" id="skills-steps">
-        <div class="skill-step">
-          <p class="skills-why-text">Your vote forces politicians to listen</p>
+
+      <div class="whyvote-chart" aria-label="Abstention chart">
+        <div class="whyvote-chart-wrap">
+          <div class="whyvote-ledger" id="whyvote-ledger" aria-label="Year 2024 Greece abstention summary">
+            <p class="whyvote-ledger-title">Year 2024</p>
+            <div class="whyvote-ledger-row">
+              <span class="whyvote-ledger-swatch" aria-hidden="true"></span>
+              <span>GR abstention: <code>58.76%</code></span>
+            </div>
+            <div class="whyvote-ledger-row">
+              <span style="width:12px;" aria-hidden="true"></span>
+              <span>Δ (GR − EU): <code>+9.50%</code></span>
+            </div>
+          </div>
+          <canvas id="abstentionChart" aria-label="Line chart: voter abstention percentages in Greece compared to the European Union for 2014, 2019, and 2024." role="img"></canvas>
         </div>
-        <div class="skill-step">
-          <p class="skills-why-text">Not voting = someone else decides for you</p>
-        </div>
-        <div class="skill-step">
-          <p class="skills-why-text">Democracy only works with participation</p>
+        <div class="whyvote-source">
+          Source: <a href="https://results.elections.europa.eu/en/turnout/" target="_blank" rel="noopener noreferrer">European Parliament election results — turnout</a>
         </div>
       </div>
     </div>
+
+    <div class="whyvote-afterline">Not voting means someone else decides for you.</div>
+    <div class="whyvote-afterline-spacer" aria-hidden="true"></div>
   </section>
 
   <section id="quiz" aria-labelledby="quiz-heading">
@@ -927,6 +1125,10 @@
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
+    }
+
+    function clamp(n, min, max) {
+      return Math.max(min, Math.min(max, n));
     }
 
     async function loadContent() {
@@ -1157,6 +1359,181 @@
     })();
 
     initHeroVoteRotator();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function initWhyVoteChart() {
+      const canvas = document.getElementById('abstentionChart');
+      const ledger = document.getElementById('whyvote-ledger');
+      if (!canvas || !ledger || typeof Chart === 'undefined') return;
+
+      const series = (function () {
+        // Official turnout figures from European Parliament election results
+        // https://results.elections.europa.eu/en/turnout/
+        const years = [2014, 2019, 2024];
+        const greeceTurnout = [59.97, 58.69, 41.24];
+        const euTurnout = [42.61, 50.66, 50.74];
+        const greeceAbst = greeceTurnout.map(t => 100 - t);
+        const euAbst = euTurnout.map(t => 100 - t);
+        return { years, greeceAbst, euAbst };
+      })();
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const css = getComputedStyle(document.documentElement);
+      const fg = css.getPropertyValue('--white').trim() || '#f5f5f5';
+
+      const ctx = canvas.getContext('2d');
+      const greeceColor = 'rgba(245, 245, 245, 0.92)';
+      const euColor = 'rgba(245, 245, 245, 0.55)';
+      const grid = 'rgba(245, 245, 245, 0.10)';
+
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: series.years.map(String),
+          datasets: [
+            {
+              label: 'Greece abstention',
+              data: series.greeceAbst,
+              borderColor: greeceColor,
+              backgroundColor: greeceColor,
+              borderWidth: 2,
+              pointRadius: 3,
+              pointHoverRadius: 5,
+              tension: 0.25
+            },
+            {
+              label: 'EU abstention',
+              data: series.euAbst,
+              borderColor: euColor,
+              backgroundColor: euColor,
+              borderWidth: 2,
+              pointRadius: 3,
+              pointHoverRadius: 5,
+              tension: 0.25
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: reduceMotion ? false : { duration: 650 },
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: 'rgba(245, 245, 245, 0.78)',
+                boxWidth: 14,
+                boxHeight: 14,
+                usePointStyle: true,
+                pointStyle: 'line'
+              }
+            },
+            tooltip: {
+              enabled: true,
+              backgroundColor: 'rgba(6, 6, 7, 0.92)',
+              titleColor: fg,
+              bodyColor: 'rgba(245, 245, 245, 0.9)',
+              borderColor: 'rgba(245, 245, 245, 0.12)',
+              borderWidth: 1,
+              callbacks: {
+                title(items) {
+                  const year = items?.[0]?.label ?? '';
+                  return `Year ${year}`;
+                },
+                label(context) {
+                  const v = context.parsed.y;
+                  return `${context.dataset.label}: ${v.toFixed(2)}%`;
+                },
+                afterBody(items) {
+                  const idx = items?.[0]?.dataIndex ?? 0;
+                  const ga = series.greeceAbst[idx];
+                  const ea = series.euAbst[idx];
+                  const d = ga - ea;
+                  const sign = d >= 0 ? '+' : '−';
+                  return `Δ (Greece − EU): ${sign}${Math.abs(d).toFixed(2)}%`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: { color: 'rgba(245, 245, 245, 0.65)' },
+              grid: { color: 'rgba(245, 245, 245, 0.06)' }
+            },
+            y: {
+              suggestedMin: 35,
+              suggestedMax: 65,
+              ticks: {
+                color: 'rgba(245, 245, 245, 0.65)',
+                callback(value) {
+                  const n = typeof value === 'number' ? value : Number(value);
+                  return `${clamp(n, 0, 100)}%`;
+                }
+              },
+              grid: { color: grid }
+            }
+          }
+        }
+      });
+
+      (function pinLedgerTo2024() {
+        const wrap = canvas.closest('.whyvote-chart-wrap');
+        if (!wrap) return;
+
+        function positionLedger() {
+          const wrapRect = wrap.getBoundingClientRect();
+          const ledgerRect = ledger.getBoundingClientRect();
+
+          const year = 2024;
+          const xPix = chart.scales?.x?.getPixelForValue(String(year));
+          const yVal = series.greeceAbst[series.years.indexOf(year)];
+          const yPix = chart.scales?.y?.getPixelForValue(yVal);
+          if (!Number.isFinite(xPix) || !Number.isFinite(yPix)) return;
+
+          const lx = xPix - wrapRect.left;
+          const ly = yPix - wrapRect.top;
+
+          const x = Math.round(lx - ledgerRect.width - 14);
+          const y = Math.round(ly - ledgerRect.height - 10);
+
+          const maxX = Math.round(wrapRect.width - ledgerRect.width - 8);
+          const maxY = Math.round(wrapRect.height - ledgerRect.height - 8);
+          const clampedX = clamp(x, 8, maxX);
+          const clampedY = clamp(y, 8, maxY);
+
+          ledger.style.transform = `translate3d(${clampedX}px, ${clampedY}px, 0)`;
+        }
+
+        requestAnimationFrame(() => {
+          positionLedger();
+          requestAnimationFrame(positionLedger);
+        });
+
+        window.addEventListener('resize', positionLedger);
+        const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(positionLedger) : null;
+        if (ro) ro.observe(wrap);
+
+        const prev = chart.options.onHover;
+        chart.options.onHover = function (evt, active, chartInstance) {
+          if (typeof prev === 'function') prev(evt, active, chartInstance);
+          positionLedger();
+        };
+
+        const prevComplete = chart.options.animation && chart.options.animation.onComplete;
+        if (chart.options.animation && chart.options.animation !== false) {
+          chart.options.animation.onComplete = function () {
+            if (typeof prevComplete === 'function') prevComplete();
+            positionLedger();
+          };
+        }
+      })();
+
+      void chart;
+    })();
   </script>
   <script type="module">
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js';
