@@ -1007,11 +1007,11 @@
       <div class="section-head">
         <p class="eyebrow">Voting</p>
         <h2 id="polling-heading">Find <span>your polling place</span></h2>
-        <p>Enter your address to look up where you vote. (Coming soon)</p>
+        <p>In Greece, you typically find your polling station using your identity details — starting with your last name. (Demo)</p>
       </div>
       <div class="party-card" style="padding: 1.25rem;">
-        <label for="polling-address" style="display:block; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ember); margin-bottom:0.35rem;">Address</label>
-        <input id="polling-address" type="text" placeholder="Type your address…" style="width:100%; font-family:inherit; font-size:1rem; padding:0.8rem 0.9rem; border-radius:10px; border:1px solid rgba(245, 245, 245, 0.18); background: rgba(245, 245, 245, 0.04); color: rgba(245, 245, 245, 0.85);" />
+        <label for="polling-last-name" style="display:block; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ember); margin-bottom:0.35rem;">Last name</label>
+        <input id="polling-last-name" type="text" autocomplete="family-name" placeholder="Type your last name…" style="width:100%; font-family:inherit; font-size:1rem; padding:0.8rem 0.9rem; border-radius:10px; border:1px solid rgba(245, 245, 245, 0.18); background: rgba(245, 245, 245, 0.04); color: rgba(245, 245, 245, 0.85);" />
         <button type="button" id="polling-search" class="cta polling-search-btn">Search</button>
         <p id="polling-result" style="margin-top:0.9rem; font-size:0.9rem; opacity:0.9; display:none;"></p>
       </div>
@@ -1272,7 +1272,7 @@
     });
 
     function initPollingDummy() {
-      const input = document.getElementById('polling-address');
+      const input = document.getElementById('polling-last-name');
       const btn = document.getElementById('polling-search');
       const out = document.getElementById('polling-result');
       if (!input || !btn || !out) return;
@@ -1283,12 +1283,12 @@
       }
 
       btn.addEventListener('click', () => {
-        const address = (input.value || '').trim();
-        if (!address) {
-          show('Please enter your address to continue.');
+        const last = (input.value || '').trim();
+        if (!last) {
+          show('Please enter your last name to continue.');
           return;
         }
-        show('Coming soon — official polling-place lookup will be added here. For now, check your municipality’s election site.');
+        show(`Demo lookup for “${last}”. In Greece, official polling-station search is based on identity details (not your address).`);
       });
     }
 

@@ -8,11 +8,15 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "pptx:govote": "node \"presentation/generate-pptx-from-pdf.js\""
   },
   "dependencies": {
     "express": "^4.18.2",
     "mongodb": "^6.3.0",
-    "multer": "^2.1.1"
+    "multer": "^2.1.1",
+    "pdf-parse": "^2.4.5",
+    "pdfjs-dist": "^5.6.205",
+    "pptxgenjs": "^4.0.1"
   }
 }
