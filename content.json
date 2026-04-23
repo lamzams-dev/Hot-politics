@@ -201,89 +201,129 @@
       "id": "quiz-1",
       "question": "Before you choose a party, what is the most reliable first step to understand what they stand for?",
       "options": [
+        "Get informed from reels and clips that are short and easy to consume",
         "Read the party’s programme/official website and compare it to their record and credible reporting",
-        "Only follow viral clips and memes because they’re short",
-        "Wait for a celebrity to say what to do"
+        "Discuss with friends and follow the most popular opinion in your circle"
       ],
-      "correct": 0,
-      "explanation": "Preparation starts with primary sources (official programme/website) plus independent reporting. Short clips can be misleading without context."
+      "correct": 1,
+      "explanation": "Preparation starts with primary sources (official programme/website) plus independent reporting.",
+      "rationales": [
+        "Short clips can be useful entry points, but they often lack context and can be selectively edited. Use them to spot topics, then verify with primary sources and reliable reporting.",
+        "Party programmes and official websites tell you stated priorities; checking record and credible reporting helps you see consistency and real-world impact.",
+        "Friends can help you think, but popularity in your circle isn’t evidence. It can turn into groupthink and miss important details or trade-offs."
+      ]
     },
     {
       "id": "quiz-2",
       "question": "Which approach is the fairest way to compare parties you disagree with?",
       "options": [
-        "Summarise their strongest argument in your own words before criticising it",
         "Only read sources that already agree with you",
-        "Judge them only by a single quote taken out of context"
+        "Judge them only by a single quote taken out of context",
+        "Summarise their strongest argument in your own words before criticising it"
       ],
-      "correct": 0,
-      "explanation": "If you can accurately restate an opposing view, you’re less likely to vote based on misunderstandings."
+      "correct": 2,
+      "explanation": "If you can accurately restate an opposing view, you’re less likely to vote based on misunderstandings.",
+      "rationales": [
+        "This creates an echo chamber. You may miss counter-evidence or stronger arguments, and you’re more likely to misunderstand what others actually propose.",
+        "Quotes can be misleading without context (who said it, when, and in response to what). It’s better to look at full statements and policies.",
+        "This helps you avoid straw-manning. If you can explain the strongest version of the argument, your critique (and vote) is more informed."
+      ]
     },
     {
       "id": "quiz-3",
       "question": "From the party cards on this site, which group explicitly says it opposes EU & NATO membership?",
       "options": [
-        "KKE — Communist Party of Greece",
         "PASOK – Movement for Change",
-        "Nea Dimokratia — New Democracy"
+        "Nea Dimokratia — New Democracy",
+        "KKE — Communist Party of Greece"
       ],
-      "correct": 0,
-      "explanation": "In the leaders section, KKE’s description includes opposition to EU/NATO membership."
+      "correct": 2,
+      "explanation": "In the leaders section, KKE’s description includes opposition to EU/NATO membership.",
+      "rationales": [
+        "PASOK is described as pro-European integration, so it doesn’t match opposition to EU membership.",
+        "New Democracy is described as pro EU/NATO integration, so it doesn’t match opposition to EU & NATO membership.",
+        "KKE’s entry explicitly mentions opposition to EU & NATO membership."
+      ]
     },
     {
       "id": "quiz-4",
       "question": "Which leader on this page is identified as Prime Minister?",
       "options": [
-        "Kyriakos Mitsotakis",
         "Nikos Androulakis",
+        "Kyriakos Mitsotakis",
         "Zoe Konstantopoulou"
       ],
-      "correct": 0,
-      "explanation": "The Nea Dimokratia entry notes “Prime Minister” in the brief CV."
+      "correct": 1,
+      "explanation": "The Nea Dimokratia entry notes “Prime Minister” in the brief CV.",
+      "rationales": [
+        "Androulakis is listed as PASOK’s leader; the page doesn’t label him as Prime Minister.",
+        "Mitsotakis (New Democracy) is labelled Prime Minister in the brief CV on the page.",
+        "Konstantopoulou is listed as Plefsi Eleftherias leader; the page doesn’t label her as Prime Minister."
+      ]
     },
     {
       "id": "quiz-5",
       "question": "Which signal is most useful to judge whether a political claim is trustworthy?",
       "options": [
-        "It cites evidence you can check (data, documents, official sources) and multiple credible outlets report the same facts",
         "It makes you feel angry or thrilled, so it must be true",
-        "It has lots of likes and shares"
+        "It has lots of likes and shares",
+        "It cites evidence you can check (data, documents, official sources) and multiple credible outlets report the same facts"
       ],
-      "correct": 0,
-      "explanation": "Virality and emotion aren’t evidence. Cross-checkable sources and independent corroboration are."
+      "correct": 2,
+      "explanation": "Virality and emotion aren’t evidence. Cross-checkable sources and independent corroboration are.",
+      "rationales": [
+        "Strong emotion can be a sign of persuasive messaging, not accuracy. It’s worth pausing and checking sources before accepting the claim.",
+        "Popularity isn’t truth. Likes can be bought, manipulated, or driven by outrage rather than evidence.",
+        "Verifiable sources and independent corroboration are the strongest signals that a claim is grounded in reality."
+      ]
     },
     {
       "id": "quiz-6",
       "question": "If a party emphasises “strict immigration enforcement” and “national sovereignty”, which party card on this page matches that description?",
       "options": [
-        "Elliniki Lysi — Greek Solution",
         "SYRIZA — Coalition of the Radical Left – Progressive Alliance",
+        "Elliniki Lysi — Greek Solution",
         "Nea Aristera — New Left"
       ],
-      "correct": 0,
-      "explanation": "The Greek Solution entry highlights strict immigration enforcement and national sovereignty."
+      "correct": 1,
+      "explanation": "The Greek Solution entry highlights strict immigration enforcement and national sovereignty.",
+      "rationales": [
+        "SYRIZA’s description focuses on progressive reforms and social justice rather than strict immigration enforcement and national sovereignty framing.",
+        "Greek Solution’s description explicitly includes strict immigration enforcement and national sovereignty.",
+        "New Left’s description focuses on social equality and welfare-state priorities rather than strict immigration enforcement framing."
+      ]
     },
     {
       "id": "quiz-7",
       "question": "What’s the best way to handle a policy area you don’t understand (e.g., economy, migration, climate) before voting?",
       "options": [
-        "Pick 2–3 trusted explainers, learn the basics, then compare parties on that single issue using primary sources",
         "Avoid it completely and decide only on vibes",
+        "Pick 2–3 trusted explainers, learn the basics, then compare parties on that single issue using primary sources",
         "Assume the loudest speaker is correct"
       ],
-      "correct": 0,
-      "explanation": "Being “prepared” doesn’t mean knowing everything — it means knowing enough to compare parties on what matters to you."
+      "correct": 1,
+      "explanation": "Being “prepared” doesn’t mean knowing everything — it means knowing enough to compare parties on what matters to you.",
+      "rationales": [
+        "Vibes can be manipulated and won’t help you evaluate trade-offs. Even a quick basics check is usually better than guessing.",
+        "This is a realistic way to become informed quickly: learn the basics, then compare parties using what they claim and what credible sources report.",
+        "Being loud or confident isn’t evidence. Focus on verifiable claims and clear proposals."
+      ]
     },
     {
       "id": "quiz-8",
       "question": "On this page, which description fits PASOK – Movement for Change?",
       "options": [
-        "Centre-left, social democratic; pro-European integration",
         "Far-right, religious conservative; opposition to secularisation",
+        "Centre-left, social democratic; pro-European integration",
         "Right-wing populist; “Greece First”"
       ],
-      "correct": 0,
-      "explanation": "PASOK’s entry is described as social democratic and pro-European integration."
+      "correct": 1,
+      "explanation": "PASOK’s entry is described as social democratic and pro-European integration.",
+      "rationales": [
+        "This description matches parties framed as religious conservative/far-right on the page, not PASOK.",
+        "PASOK’s entry is described as centre-left social democratic and pro-European integration.",
+        "This matches the “Greece First” framing used in the Greek Solution description, not PASOK."
+      ]
     }
   ]
 }
