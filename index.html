@@ -932,6 +932,7 @@
       text-underline-offset: 0.18em;
       text-decoration-thickness: 1px;
       font-weight: 600;
+      font-size: 0.88rem;
     }
     .deepdive-card-link:hover,
     .deepdive-card-link:focus {
@@ -949,9 +950,12 @@
       text-align: center;
     }
     .quiz-box h3 {
-      font-family: 'Raleway', -apple-system, system-ui, sans-serif;
-      font-size: 1.1rem;
-      color: var(--white);
+      font-family: 'Instrument Serif', ui-serif, Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(1.55rem, 4.6vw, 2.05rem);
+      line-height: 1.14;
+      letter-spacing: -0.02em;
+      color: rgba(245, 245, 245, 0.96);
       margin-bottom: 2.5rem;
     }
     .quiz-options {
@@ -1002,10 +1006,10 @@
       opacity: 1;
     }
     .quiz-feedback.correct {
-      color: #a5d6a7;
+      color: var(--ember);
     }
     .quiz-feedback.wrong {
-      color: rgba(245, 245, 245, 0.8);
+      color: var(--ember);
     }
     .quiz-nav {
       margin-top: 1rem;
@@ -1057,7 +1061,8 @@
       outline: none;
     }
     .quiz-score {
-      margin-top: 2.5rem;
+      margin-top: auto;
+      padding-top: 1rem;
       font-size: 0.9rem;
       color: var(--ember);
     }
