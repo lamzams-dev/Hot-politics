@@ -4,6 +4,7 @@ const fs = require('fs');
 const { MongoClient } = require('mongodb');
 const multer = require('multer');
 const crypto = require('crypto');
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -106,18 +107,23 @@ function writeContentSync(data) {
 app.use(express.json({ limit: '1mb' }));
 app.use(express.static(__dirname));
 
-const UPLOAD_DIR = path.join(__dirname, 'assets', 'leaders');
-fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+const R2_ENDPOINT = process.env.R2_ENDPOINT;
+const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
+const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
+const R2_BUCKET = process.env.R2_BUCKET;
+const R2_PUBLIC_BASE_URL = process.env.R2_PUBLIC_BASE_URL; // e.g. https://pub-xxxx.r2.dev or https://cdn.yoursite.com
+
+const r2 =
+  R2_ENDPOINT && R2_ACCESS_KEY_ID && R2_SECRET_ACCESS_KEY && R2_BUCKET
+    ? new S3Client({
+        region: 'auto',
+        endpoint: R2_ENDPOINT,
+        credentials: { accessKeyId: R2_ACCESS_KEY_ID, secretAccessKey: R2_SECRET_ACCESS_KEY }
+      })
+    : null;
 
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: (_req, _file, cb) => cb(null, UPLOAD_DIR),
-    filename: (_req, file, cb) => {
-      const ext = (path.extname(file.originalname || '') || '').toLowerCase();
-      const safeExt = ['.png', '.jpg', '.jpeg', '.webp'].includes(ext) ? ext : '.png';
-      cb(null, `${crypto.randomUUID()}${safeExt}`);
-    }
-  }),
+  storage: multer.memoryStorage(),
   limits: { fileSize: 3 * 1024 * 1024 }, // 3MB
   fileFilter: (_req, file, cb) => {
     const ok = ['image/png', 'image/jpeg', 'image/webp'].includes(file.mimetype);
@@ -133,10 +139,36 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/api/leaders/photo', upload.single('photo'), (req, res) => {
-  if (!req.file) return res.status(400).json({ error: 'Missing photo file' });
-  const url = `/assets/leaders/${req.file.filename}`;
-  res.json({ ok: true, url });
+app.post('/api/leaders/photo', upload.single('photo'), async (req, res) => {
+  try {
+    if (!r2) {
+      return res.status(500).json({
+        error: 'R2 is not configured. Set R2_ENDPOINT, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET.'
+      });
+    }
+    if (!req.file) return res.status(400).json({ error: 'Missing photo file' });
+
+    const ext = (path.extname(req.file.originalname || '') || '').toLowerCase();
+    const safeExt = ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.webp' ? ext : '.png';
+    const key = `leaders/${crypto.randomUUID()}${safeExt}`;
+
+    await r2.send(
+      new PutObjectCommand({
+        Bucket: R2_BUCKET,
+        Key: key,
+        Body: req.file.buffer,
+        ContentType: req.file.mimetype,
+        CacheControl: 'public, max-age=31536000, immutable'
+      })
+    );
+
+    const base = (R2_PUBLIC_BASE_URL || '').replace(/\/+$/, '');
+    const url = base ? `${base}/${key}` : key;
+    res.json({ ok: true, url, key });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Upload failed' });
+  }
 });
 
 app.get('/api/content', async (req, res) => {
