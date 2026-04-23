@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       /* Palette closer to the Limitless template (monochrome on deep black) */
@@ -32,7 +32,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-family: 'Raleway', -apple-system, system-ui, sans-serif;
       background: var(--dark);
       color: var(--white);
       line-height: 1.5;
@@ -400,7 +400,7 @@
     }
     .cta {
       display: inline-block;
-      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-family: 'Raleway', -apple-system, system-ui, sans-serif;
       background: var(--white);
       color: var(--dark);
       font-weight: 600;
@@ -576,13 +576,13 @@
       background: rgba(245, 245, 245, 0.06);
     }
     .party-card h3 {
-      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-family: 'Raleway', -apple-system, system-ui, sans-serif;
       font-size: 1.1rem;
       color: var(--white);
       margin-bottom: 0.35rem;
     }
     .party-card .tag {
-      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-family: 'Raleway', -apple-system, system-ui, sans-serif;
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -813,12 +813,146 @@
       border-radius: 12px;
       padding: 1.5rem;
       margin-bottom: 1rem;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Deep dive section (match Parties background + padding) */
+    #deep-dive {
+      position: relative;
+      padding-top: 4.25rem;
+      padding-bottom: 4.75rem;
+      background: linear-gradient(180deg, #0a0e18 0%, #080b14 45%, #070910 100%);
+    }
+    #deep-dive::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(ellipse 85% 60% at 50% -8%, rgba(80, 120, 220, 0.07) 0%, transparent 58%);
+    }
+    #deep-dive .container {
+      position: relative;
+      z-index: 1;
+    }
+    #deep-dive .section-head {
+      margin-bottom: 2.25rem;
+    }
+    .deepdive {
+      margin-top: 1.85rem;
+    }
+    /* When deepdive is its own section, remove extra top margin */
+    #deep-dive .deepdive {
+      margin-top: 0;
+    }
+    .deepdive-cards {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      padding: 0.25rem 0 0.75rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .deepdive-cards::-webkit-scrollbar {
+      display: none;
+    }
+    .deepdive-card {
+      min-width: 320px;
+      max-width: 360px;
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      background: rgba(245, 245, 245, 0.03);
+      border: 1px solid rgba(245, 245, 245, 0.12);
+      border-radius: 12px;
+      padding: 1.15rem 1.2rem 1.1rem;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+      overflow: hidden;
+    }
+    @media (min-width: 1100px) {
+      .deepdive-cards {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        overflow-x: visible;
+        padding-bottom: 0.25rem;
+        scroll-snap-type: none;
+      }
+      .deepdive-card {
+        min-width: 0;
+        max-width: none;
+      }
+    }
+    .deepdive-card:hover {
+      background: rgba(245, 245, 245, 0.05);
+      border-color: rgba(245, 245, 245, 0.18);
+      transform: translateY(-2px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .deepdive-card,
+      .deepdive-card:hover {
+        transition: none;
+        transform: none;
+      }
+    }
+    .deepdive-card-title {
+      margin: 0;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
+      color: rgba(245, 245, 245, 0.95);
+    }
+    .deepdive-thumb {
+      margin: -1.15rem -1.2rem 0.95rem;
+      border-bottom: 1px solid rgba(245, 245, 245, 0.10);
+      background: rgba(245, 245, 245, 0.02);
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      display: block;
+    }
+    .deepdive-thumb img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .deepdive-card-desc {
+      margin-top: 0.55rem;
+      color: rgba(245, 245, 245, 0.64);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .deepdive-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.85rem;
+      color: rgba(245, 245, 245, 0.9);
+      text-decoration: underline;
+      text-underline-offset: 0.18em;
+      text-decoration-thickness: 1px;
+      font-weight: 600;
+    }
+    .deepdive-card-link:hover,
+    .deepdive-card-link:focus {
+      color: rgba(245, 245, 245, 0.98);
+    }
+    .deepdive-card-link:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(245, 245, 245, 0.14);
+      border-radius: 10px;
+    }
+    .deepdive-note {
+      margin-top: 0.9rem;
+      font-size: 0.85rem;
+      color: rgba(245, 245, 245, 0.56);
+      text-align: center;
     }
     .quiz-box h3 {
-      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-family: 'Raleway', -apple-system, system-ui, sans-serif;
       font-size: 1.1rem;
       color: var(--white);
-      margin-bottom: 1rem;
+      margin-bottom: 2.5rem;
     }
     .quiz-options {
       display: flex;
@@ -856,46 +990,74 @@
     }
     .quiz-feedback {
       margin-top: 1rem;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      font-style: italic;
       padding: 0.75rem;
       border-radius: 8px;
-      display: none;
-    }
-    .quiz-feedback.show {
       display: block;
+      min-height: 4.25rem;
+      opacity: 0;
+    }
+    .quiz-feedback.is-visible {
+      opacity: 1;
     }
     .quiz-feedback.correct {
-      background: rgba(76, 175, 80, 0.2);
       color: #a5d6a7;
     }
     .quiz-feedback.wrong {
-      background: rgba(255, 255, 255, 0.04);
       color: rgba(245, 245, 245, 0.8);
     }
-    .quiz-next {
+    .quiz-nav {
       margin-top: 1rem;
-      background: rgba(245, 245, 245, 0.10);
-      color: rgba(245, 245, 245, 0.96);
-      border: 1px solid rgba(245, 245, 245, 0.22);
-      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .quiz-prev {
+      font-family: 'Raleway', -apple-system, system-ui, sans-serif;
       font-weight: 600;
-      font-size: 0.95rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 999px;
+      font-size: 0.86rem;
+      padding: 0.15rem 0;
+      border: none;
+      background: transparent;
+      color: rgba(245, 245, 245, 0.78);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+      text-decoration-thickness: 1px;
       cursor: pointer;
-      display: none;
-    }
-    .quiz-next:hover,
-    .quiz-next:focus-visible {
-      background: rgba(245, 245, 245, 0.14);
-      border-color: rgba(245, 245, 245, 0.30);
-      outline: none;
-    }
-    .quiz-next.show {
       display: inline-block;
     }
+    .quiz-prev:hover,
+    .quiz-prev:focus-visible {
+      color: rgba(245, 245, 245, 0.95);
+      outline: none;
+    }
+    .quiz-prev.is-hidden { display: none; }
+    .quiz-next {
+      font-family: 'Raleway', -apple-system, system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 0.86rem;
+      padding: 0.15rem 0;
+      border: none;
+      background: transparent;
+      color: rgba(245, 245, 245, 0.78);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+      text-decoration-thickness: 1px;
+      cursor: pointer;
+      display: inline-block;
+      margin-left: auto;
+    }
+    .quiz-next.is-hidden { display: none; }
+    .quiz-next:hover,
+    .quiz-next:focus-visible {
+      color: rgba(245, 245, 245, 0.95);
+      outline: none;
+    }
     .quiz-score {
-      margin-top: 1rem;
+      margin-top: 2.5rem;
       font-size: 0.9rem;
       color: var(--ember);
     }
@@ -912,7 +1074,7 @@
       opacity: 0.7;
     }
     footer .course {
-      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      font-family: 'Raleway', -apple-system, system-ui, sans-serif;
       font-weight: 600;
       color: rgba(245, 245, 245, 0.9);
       margin-bottom: 0.25rem;
@@ -1097,9 +1259,59 @@
       <div class="quiz-box">
         <h3 class="quiz-question" id="quiz-question">Loading…</h3>
         <div class="quiz-options" id="quiz-options"></div>
+        <div class="quiz-nav">
+          <button type="button" class="quiz-prev" id="quiz-prev">Previous</button>
+          <button type="button" class="quiz-next" id="quiz-next">Next</button>
+        </div>
         <div class="quiz-feedback" id="quiz-feedback"></div>
-        <button type="button" class="quiz-next" id="quiz-next">Next question</button>
         <p class="quiz-score" id="quiz-score"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="deep-dive" aria-labelledby="deep-dive-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Explore</p>
+        <h2 id="deep-dive-heading">Level up your <span>media skills</span></h2>
+        <p>Try these quick, research-style tasks and games to stress-test how you think, decide, and spot manipulation.</p>
+      </div>
+      <div class="deepdive" aria-label="Explore more interactive tasks">
+        <div class="deepdive-cards" aria-label="Deep dive cards">
+          <article class="deepdive-card">
+            <span class="deepdive-thumb" aria-hidden="true">
+              <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fwww.psytoolkit.org%2Fexperiment-library%2Ftaskswitching.html?w=900" alt="" loading="lazy" decoding="async" />
+            </span>
+            <h3 class="deepdive-card-title">Cognitive flexibility</h3>
+            <p class="deepdive-card-desc">Want a quick brain challenge? Try a task-switching demo (set-shifting).</p>
+            <a class="deepdive-card-link" href="https://www.psytoolkit.org/experiment-library/taskswitching.html" target="_blank" rel="noopener noreferrer">Open task-switching demo →</a>
+          </article>
+          <article class="deepdive-card">
+            <span class="deepdive-thumb" aria-hidden="true">
+              <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fwww.philosophyexperiments.com%2Fwason?w=900" alt="" loading="lazy" decoding="async" />
+            </span>
+            <h3 class="deepdive-card-title">Wason selection task</h3>
+            <p class="deepdive-card-desc">Test your logic: can you solve the classic four-card reasoning puzzle?</p>
+            <a class="deepdive-card-link" href="https://www.philosophyexperiments.com/wason" target="_blank" rel="noopener noreferrer">Try the Wason task →</a>
+          </article>
+          <article class="deepdive-card">
+            <span class="deepdive-thumb" aria-hidden="true">
+              <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fwww.harmonysquare.game%2Fen?w=900" alt="" loading="lazy" decoding="async" />
+            </span>
+            <h3 class="deepdive-card-title">Election misinformation</h3>
+            <p class="deepdive-card-desc">See how political misinformation spreads by playing Harmony Square.</p>
+            <a class="deepdive-card-link" href="https://www.harmonysquare.game/en" target="_blank" rel="noopener noreferrer">Play Harmony Square →</a>
+          </article>
+          <article class="deepdive-card">
+            <span class="deepdive-thumb" aria-hidden="true">
+              <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fwww.getbadnews.com%2Fen?w=900" alt="" loading="lazy" decoding="async" />
+            </span>
+            <h3 class="deepdive-card-title">Spot fake news</h3>
+            <p class="deepdive-card-desc">Train your fake-news radar with Bad News — a misinformation inoculation game.</p>
+            <a class="deepdive-card-link" href="https://www.getbadnews.com/en" target="_blank" rel="noopener noreferrer">Play Bad News →</a>
+          </article>
+        </div>
+        <p class="deepdive-note">These are learning tools—not medical or psychological diagnoses.</p>
       </div>
     </div>
   </section>
@@ -1114,10 +1326,11 @@
   <script>
     let quizData = [];
     let currentQ = 0;
-    let score = 0;
+    let answers = [];
     const questionEl = document.getElementById('quiz-question');
     const optionsEl = document.getElementById('quiz-options');
     const feedbackEl = document.getElementById('quiz-feedback');
+    const prevBtn = document.getElementById('quiz-prev');
     const nextBtn = document.getElementById('quiz-next');
     const scoreEl = document.getElementById('quiz-score');
 
@@ -1211,6 +1424,7 @@
       const q = quizData[currentQ];
       if (!q) {
         const total = quizData.length || 0;
+        const score = total ? answers.reduce((acc, a, i) => acc + (a === quizData[i].correct ? 1 : 0), 0) : 0;
         const pct = total ? score / total : 0;
         let msg = total ? `You got ${score} out of ${total}. ` : '';
         if (!total) {
@@ -1224,9 +1438,10 @@
         }
         questionEl.textContent = 'Quiz complete!';
         optionsEl.innerHTML = '';
-        feedbackEl.className = 'quiz-feedback show correct';
+        feedbackEl.className = 'quiz-feedback is-visible correct';
         feedbackEl.textContent = msg;
-        nextBtn.classList.remove('show');
+        prevBtn.classList.toggle('is-hidden', true);
+        nextBtn.classList.toggle('is-hidden', true);
         scoreEl.textContent = '';
         return;
       }
@@ -1236,38 +1451,76 @@
       ).join('');
       feedbackEl.className = 'quiz-feedback';
       feedbackEl.textContent = '';
-      feedbackEl.classList.remove('show');
-      nextBtn.classList.remove('show');
+      feedbackEl.classList.remove('is-visible');
+      prevBtn.classList.toggle('is-hidden', currentQ === 0);
+      nextBtn.classList.toggle('is-hidden', false);
+      nextBtn.textContent = currentQ === quizData.length - 1 ? 'Finish' : 'Next';
       scoreEl.textContent = `Question ${currentQ + 1} of ${quizData.length}`;
       optionsEl.querySelectorAll('.quiz-option').forEach(btn => {
         btn.addEventListener('click', pickOption);
       });
     }
 
+    function showAnsweredState(idx) {
+      const q = quizData[currentQ];
+      const options = optionsEl.querySelectorAll('.quiz-option');
+      // Allow changing answer: keep options clickable, just refresh UI state.
+      options.forEach(o => {
+        o.disabled = false;
+        o.classList.remove('correct', 'wrong');
+      });
+
+      function getRationale(forIndex) {
+        const arr = Array.isArray(q.rationales) ? q.rationales : null;
+        const r = arr && typeof arr[forIndex] === 'string' ? arr[forIndex].trim() : '';
+        return r || (typeof q.explanation === 'string' ? q.explanation.trim() : '');
+      }
+
+      const selectedBtn = optionsEl.querySelector(`.quiz-option[data-index="${idx}"]`);
+      if (idx === q.correct) {
+        if (selectedBtn) selectedBtn.classList.add('correct');
+        const why = getRationale(q.correct);
+        feedbackEl.textContent = why ? `Correct! ${why}` : 'Correct!';
+        feedbackEl.className = 'quiz-feedback is-visible correct';
+      } else {
+        if (selectedBtn) selectedBtn.classList.add('wrong');
+        const correctBtn = optionsEl.querySelector(`.quiz-option[data-index="${q.correct}"]`);
+        if (correctBtn) correctBtn.classList.add('correct');
+        const whySelected = getRationale(idx);
+        const whyCorrect = getRationale(q.correct);
+        const parts = [
+          'Not quite.',
+          whySelected ? `Why this isn’t the best choice: ${whySelected}` : '',
+          whyCorrect ? `What makes the correct answer stronger: ${whyCorrect}` : '',
+          'The correct answer is highlighted.'
+        ].filter(Boolean);
+        feedbackEl.textContent = parts.join(' ');
+        feedbackEl.className = 'quiz-feedback is-visible wrong';
+      }
+
+      // Next is always allowed (skipping is OK).
+    }
+
     function pickOption(e) {
       const btn = e.target;
       const idx = parseInt(btn.dataset.index, 10);
-      const q = quizData[currentQ];
-      const options = optionsEl.querySelectorAll('.quiz-option');
-      options.forEach(o => o.disabled = true);
-      if (idx === q.correct) {
-        score++;
-        btn.classList.add('correct');
-        feedbackEl.textContent = q.explanation ? `Correct! ${q.explanation}` : 'Correct!';
-        feedbackEl.className = 'quiz-feedback show correct';
-      } else {
-        btn.classList.add('wrong');
-        if (options[q.correct]) options[q.correct].classList.add('correct');
-        feedbackEl.textContent = q.explanation
-          ? `Not quite. The correct answer is highlighted. ${q.explanation}`
-          : 'Not quite. The correct answer is highlighted.';
-        feedbackEl.className = 'quiz-feedback show wrong';
-      }
-      nextBtn.classList.add('show');
+      // Record answer (allow changing when navigating back).
+      answers[currentQ] = idx;
+      showAnsweredState(idx);
     }
 
     nextBtn.addEventListener('click', () => {
-      currentQ++;
+      const lastIndex = (quizData.length || 0) - 1;
+      if (currentQ >= lastIndex) {
+        currentQ = lastIndex + 1;
+      } else {
+        currentQ++;
+      }
+      renderQuestion();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      currentQ = Math.max(0, currentQ - 1);
       renderQuestion();
     });
 
@@ -1350,6 +1603,7 @@
       if (content) {
         renderLeaders(content.leaders);
         quizData = content.quizzes || [];
+        answers = new Array(quizData.length).fill(null);
       } else {
         document.getElementById('leaders-grid').innerHTML = '<p style="opacity:0.8;">Content could not be loaded.</p>';
         bindPartiesScrollHintOnce();
